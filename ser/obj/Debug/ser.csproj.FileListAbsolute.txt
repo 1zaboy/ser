@@ -1,0 +1,17 @@
+C:\Users\Vlad\source\repos\ser\ser\obj\Debug\ser.csprojAssemblyReference.cache
+C:\Users\Vlad\source\repos\ser\ser\obj\Debug\ser.csproj.CoreCompileInputs.cache
+E:\VS17\Projects\ser\ser\obj\Debug\ser.csprojAssemblyReference.cache
+E:\VS17\Projects\ser\ser\obj\Debug\ser.csproj.CoreCompileInputs.cache
+E:\VS17\Projects\ser\ser\bin\Debug\ser.exe.config
+E:\VS17\Projects\ser\ser\bin\Debug\ser.exe
+E:\VS17\Projects\ser\ser\bin\Debug\ser.pdb
+E:\VS17\Projects\ser\ser\bin\Debug\EntityFramework.dll
+E:\VS17\Projects\ser\ser\bin\Debug\EntityFramework.SqlServer.dll
+E:\VS17\Projects\ser\ser\bin\Debug\EntityFramework.xml
+E:\VS17\Projects\ser\ser\bin\Debug\EntityFramework.SqlServer.xml
+E:\VS17\Projects\ser\ser\bin\Debug\ru\EntityFramework.resources.dll
+E:\VS17\Projects\ser\ser\obj\Debug\ser.csproj.CopyComplete
+E:\VS17\Projects\ser\ser\obj\Debug\ser.exe
+E:\VS17\Projects\ser\ser\obj\Debug\ser.pdb
+E:\VS17\Projects\ser\ser\bin\Debug\Database1.mdf
+E:\VS17\Projects\ser\ser\bin\Debug\Database1_log.ldf
