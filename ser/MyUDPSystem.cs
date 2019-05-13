@@ -48,11 +48,11 @@ namespace ser
                     IPEndPoint remoteIp = null;
                     byte[] data = client.Receive(ref remoteIp);
                     string str = Encoding.UTF8.GetString(data, 0, data.Length);
-                    Console.WriteLine("UDP String:{0}", str[0]);
+                    Console.WriteLine("UDP String:{0}", str);
                     string[] arrayStr = str.Split(':');
                     Console.WriteLine("{0}:{1}",arrayStr[0], arrayStr[1]);
                     int f = 0;
-                    if (arrayStr[0] == "1" && Int32.TryParse(arrayStr[1], out f))
+                    if (arrayStr[0] == "1" && arrayStr.Length > 1 && Int32.TryParse(arrayStr[1], out f))
                     {
                         var user = dataBaceDbb.UserNotType.Where(t => t.Id.ToString() == arrayStr[1]).ToList();
                         if (user.Any())
