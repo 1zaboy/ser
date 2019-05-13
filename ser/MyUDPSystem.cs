@@ -21,7 +21,7 @@ namespace ser
         string userName; // имя пользователя в чате
         public MyUDPSystem(string ip = "127.0.0.1", int port = 3488)
         {
-            HOST = ip;
+            HOST = IPAddress.Any.ToString();
             LOCALPORT = port;
         }
         public void Start()
