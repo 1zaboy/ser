@@ -50,31 +50,35 @@ namespace ser
                     string str = Encoding.UTF8.GetString(data, 0, data.Length);
                     Console.WriteLine("UDP String:{0}", str);
                     string[] arrayStr = str.Split(':');
-                    Console.WriteLine("{0}:{1}",arrayStr[0], arrayStr[1]);
-                    int f = 0;
-                    if (arrayStr[0] == "1" && arrayStr.Length > 1 && Int32.TryParse(arrayStr[1], out f))
+                    if (arrayStr.Length > 1)
                     {
-                        var user = dataBaceDbb.UserNotType.Where(t => t.Id.ToString() == arrayStr[1]).ToList();
-                        if (user.Any())
+                        Console.WriteLine("{0}:{1}", arrayStr[0], arrayStr[1]);
+                        int f = 0;
+                        if (arrayStr[0] == "1" && Int32.TryParse(arrayStr[1], out f))
                         {
-                            int r = user.First().index_in_list + 1 ?? default(int);
-                            if (r != default(int))
-                                ServerObject.clients[r - 1].port_udp = remoteIp.Port;
-                        }
-                        //for (int i = 0; i < ServerObject.clients.Count; i++)
-                        //{
-                        //    IPAddress address =
-                        //        ((IPEndPoint) (ServerObject.clients[i].ClientObject.client.Client.RemoteEndPoint))
-                        //        .Address;
-                        //    if (address.MapToIPv4().ToString() == remoteIp.Address.MapToIPv4().ToString())
-                        //    {
-                        //        ServerObject.clients[i].port_udp = remoteIp.Port;
-                        //        Console.WriteLine("Udp: " + remoteIp.Address + ":" + remoteIp.Port);
-                        //        break;
-                        //    }
-                        //}
-                    }
+                            string str_with_array = arrayStr[1];
+                            var user = dataBaceDbb.UserNotType.Where(t => t.Id.ToString() == str_with_array).ToList();
+                            if (user.Any())
+                            {
+                                int r = user.First().index_in_list + 1 ?? default(int);
+                                if (r != default(int))
+                                    ServerObject.clients[r - 1].port_udp = remoteIp.Port;
+                            }
 
+                            //for (int i = 0; i < ServerObject.clients.Count; i++)
+                            //{
+                            //    IPAddress address =
+                            //        ((IPEndPoint) (ServerObject.clients[i].ClientObject.client.Client.RemoteEndPoint))
+                            //        .Address;
+                            //    if (address.MapToIPv4().ToString() == remoteIp.Address.MapToIPv4().ToString())
+                            //    {
+                            //        ServerObject.clients[i].port_udp = remoteIp.Port;
+                            //        Console.WriteLine("Udp: " + remoteIp.Address + ":" + remoteIp.Port);
+                            //        break;
+                            //    }
+                            //}
+                        }
+                    }
                 }
             }
             catch (ObjectDisposedException)
