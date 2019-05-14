@@ -48,6 +48,7 @@ namespace ser
                     IPEndPoint remoteIp = null;
                     byte[] data = client.Receive(ref remoteIp);
                     string str = Encoding.UTF8.GetString(data, 0, data.Length);
+                    Console.WriteLine("info user:{0} :: {1}", remoteIp.Address, remoteIp.Port);
                     Console.WriteLine("UDP String:{0}", str);
                     string[] arrayStr = str.Split(':');
                     if (arrayStr.Length > 1)
