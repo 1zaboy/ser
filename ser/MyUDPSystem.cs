@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Migrations.Builders;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,7 @@ namespace ser
                     string str = Encoding.UTF8.GetString(data, 0, data.Length);
                     Console.WriteLine("info user:{0} :: {1}", remoteIp.Address, remoteIp.Port);
                     Console.WriteLine("UDP String:{0}", str);
+                    sendInfo(str, remoteIp);
                     string[] arrayStr = str.Split(':');
                     if (arrayStr.Length > 1)
                     {
@@ -92,6 +94,12 @@ namespace ser
             {
                 Console.WriteLine(ex.Message);
             }
+        }
+
+        public int sendInfo(string str, IPEndPoint endPoint)
+        {
+            byte[] data = Encoding.UTF8.GetBytes(str.ToCharArray(), 0, str.Length);
+            return client.Send(data, data.Length, endPoint);
         }
 
         public void ExitChat()
