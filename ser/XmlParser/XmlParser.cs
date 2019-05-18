@@ -162,37 +162,44 @@ namespace ser.XmlParser
 
 
                 var userAllRooms = dbb.C_User_In_Room.Where(t => t.UserNotType.Id.ToString() == mess.index_user).ToList();
-
-                foreach (var uir in userAllRooms)
+                if (userAllRooms.Count >= 0)
                 {
-                    XElement elementRoom = new XElement("Room");
-                    iphoneCompanyElem = new XElement("index_room", uir.C_Room.TableId);
-                    elementRoom.Add(iphoneCompanyElem);
-
-                    var messallInRoom = dbb.message_on_room.Where(t => t.C_User_In_Room.C_Room.TableId == uir.C_Room.TableId).ToList();
-                    XElement elementRoomMess = new XElement("Mess_in_room");
-                    foreach (var messageLoop in messallInRoom)
+                    foreach (var uir in userAllRooms.Take(1))
                     {
-                        XElement elementOneMess = new XElement("Mess");
+                        XElement elementRoom = new XElement("Room");
+                        iphoneCompanyElem = new XElement("index_room", uir.C_Room.TableId);
+                        elementRoom.Add(iphoneCompanyElem);
 
-                        iphoneCompanyElem = new XElement("mess_str", messageLoop.text_mess);
-                        elementOneMess.Add(iphoneCompanyElem);
-                        iphoneCompanyElem = new XElement("mess_time", messageLoop.time_mess.Value.ToString("yyyy.MM.dd-HH.mm.ss"));
-                        elementOneMess.Add(iphoneCompanyElem);
+                        var messallInRoom = dbb.message_on_room
+                            .Where(t => t.C_User_In_Room.C_Room.TableId == uir.C_Room.TableId).ToList();
+                        XElement elementRoomMess = new XElement("Mess_in_room");
+                        foreach (var messageLoop in messallInRoom)
+                        {
+                            XElement elementOneMess = new XElement("Mess");
 
-                        XElement elementMessUser = new XElement("User_in_mess");
-                        iphoneCompanyElem = new XElement("index_user", messageLoop.C_User_In_Room.UserNotType.Id);
-                        elementMessUser.Add(iphoneCompanyElem);
-                        iphoneCompanyElem = new XElement("name_user", messageLoop.C_User_In_Room.UserNotType.NameUser);
-                        elementMessUser.Add(iphoneCompanyElem);
-                        iphoneCompanyElem = new XElement("img_user", "");
-                        elementMessUser.Add(iphoneCompanyElem);
-                        elementOneMess.Add(elementMessUser);
-                        elementRoomMess.Add(elementOneMess);
+                            iphoneCompanyElem = new XElement("mess_str", messageLoop.text_mess);
+                            elementOneMess.Add(iphoneCompanyElem);
+                            iphoneCompanyElem = new XElement("mess_time",
+                                messageLoop.time_mess.Value.ToString("yyyy.MM.dd-HH.mm.ss"));
+                            elementOneMess.Add(iphoneCompanyElem);
+
+                            XElement elementMessUser = new XElement("User_in_mess");
+                            iphoneCompanyElem = new XElement("index_user", messageLoop.C_User_In_Room.UserNotType.Id);
+                            elementMessUser.Add(iphoneCompanyElem);
+                            iphoneCompanyElem = new XElement("name_user",
+                                messageLoop.C_User_In_Room.UserNotType.NameUser);
+                            elementMessUser.Add(iphoneCompanyElem);
+                            iphoneCompanyElem = new XElement("img_user", "");
+                            elementMessUser.Add(iphoneCompanyElem);
+                            elementOneMess.Add(elementMessUser);
+                            elementRoomMess.Add(elementOneMess);
+                        }
+
+                        elementRoom.Add(elementRoomMess);
+                        element.Add(elementRoom);
                     }
-                    elementRoom.Add(elementRoomMess);
-                    element.Add(elementRoom);
                 }
+
                 XD.Add(element);
                 return XD.ToString();
             }
