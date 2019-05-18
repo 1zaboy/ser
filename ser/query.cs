@@ -143,7 +143,24 @@ namespace ser
         {
             try
             {
-                string message_string = XmlParser.XmlParser.struct_all_room_to_string(mess);
+                //string message_string = XmlParser.XmlParser.struct_all_room_to_string(mess);
+                string message_string = XmlParser.XmlParser.struct_all_room_not_mess_string(mess);
+                _clientObject.SendMess(message_string);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public bool case14(StructDocMess mess)
+        {
+            try
+            {
+                //string message_string = XmlParser.XmlParser.struct_all_room_to_string(mess);
+                string message_string = XmlParser.XmlParser.struct_all_mess_in_room_to_string(mess);
                 _clientObject.SendMess(message_string);
                 return true;
             }

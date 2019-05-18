@@ -86,7 +86,117 @@ namespace ser.XmlParser
             }
         }
 
+        public static string struct_all_room_not_mess_string(StructDocMess mess)
+        {
+            dbb dbb = new dbb();
+            try
+            {
+                var XD = new XDocument();
+                XElement element = new XElement("Message");
+                XElement iphoneCompanyElem = new XElement("index_command", mess.index_command);
+                element.Add(iphoneCompanyElem);
 
+
+                var userAllRooms = dbb.C_User_In_Room.Where(t => t.UserNotType.Id.ToString() == mess.index_user).ToList();
+
+                foreach (var uir in userAllRooms)
+                {
+                    XElement elementRoom = new XElement("Room");
+                    iphoneCompanyElem = new XElement("index_room", uir.C_Room.TableId);
+                    elementRoom.Add(iphoneCompanyElem);
+                    iphoneCompanyElem = new XElement("name_room", uir.C_Room.NameRoom);
+                    elementRoom.Add(iphoneCompanyElem);
+
+                    var messallInRoom = dbb.message_on_room.Where(t => t.C_User_In_Room.C_Room.TableId == uir.C_Room.TableId).ToList().First();
+                    XElement elementRoomMess = new XElement("Mess_in_room");
+
+                    XElement elementOneMess = new XElement("Mess");
+
+                    iphoneCompanyElem = new XElement("mess_str", messallInRoom.text_mess);
+                    elementOneMess.Add(iphoneCompanyElem);
+                    iphoneCompanyElem = new XElement("mess_time", messallInRoom.time_mess.Value.ToString("yyyy.MM.dd-HH.mm.ss"));
+                    elementOneMess.Add(iphoneCompanyElem);
+
+                    XElement elementMessUser = new XElement("User_in_mess");
+                    iphoneCompanyElem = new XElement("index_user", messallInRoom.C_User_In_Room.UserNotType.Id);
+                    elementMessUser.Add(iphoneCompanyElem);
+                    iphoneCompanyElem = new XElement("name_user", messallInRoom.C_User_In_Room.UserNotType.NameUser);
+                    elementMessUser.Add(iphoneCompanyElem);
+                    iphoneCompanyElem = new XElement("img_user", "");
+                    elementMessUser.Add(iphoneCompanyElem);
+                    elementOneMess.Add(elementMessUser);
+                    elementRoomMess.Add(elementOneMess);
+
+                    elementRoom.Add(elementRoomMess);
+
+                    var allUserInRooms = dbb.C_User_In_Room.Where(t => t.C_Room.TableId == uir.C_Room.TableId).ToList();
+                    XElement elementAllUsers = new XElement("count_user", allUserInRooms.Count)
+;
+                    elementRoom.Add(elementAllUsers);
+                    element.Add(elementRoom);
+                }
+                XD.Add(element);
+                return XD.ToString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public static string struct_all_mess_in_room_to_string(StructDocMess mess)
+        {
+            dbb dbb = new dbb();
+            try
+            {
+                var XD = new XDocument();
+                XElement element = new XElement("Message");
+                XElement iphoneCompanyElem = new XElement("index_command", mess.index_command);
+                element.Add(iphoneCompanyElem);
+
+
+                var userAllRooms = dbb.C_User_In_Room.Where(t => t.UserNotType.Id.ToString() == mess.index_user).ToList();
+
+                foreach (var uir in userAllRooms)
+                {
+                    XElement elementRoom = new XElement("Room");
+                    iphoneCompanyElem = new XElement("index_room", uir.C_Room.TableId);
+                    elementRoom.Add(iphoneCompanyElem);
+
+                    var messallInRoom = dbb.message_on_room.Where(t => t.C_User_In_Room.C_Room.TableId == uir.C_Room.TableId).ToList();
+                    XElement elementRoomMess = new XElement("Mess_in_room");
+                    foreach (var messageLoop in messallInRoom)
+                    {
+                        XElement elementOneMess = new XElement("Mess");
+
+                        iphoneCompanyElem = new XElement("mess_str", messageLoop.text_mess);
+                        elementOneMess.Add(iphoneCompanyElem);
+                        iphoneCompanyElem = new XElement("mess_time", messageLoop.time_mess.Value.ToString("yyyy.MM.dd-HH.mm.ss"));
+                        elementOneMess.Add(iphoneCompanyElem);
+
+                        XElement elementMessUser = new XElement("User_in_mess");
+                        iphoneCompanyElem = new XElement("index_user", messageLoop.C_User_In_Room.UserNotType.Id);
+                        elementMessUser.Add(iphoneCompanyElem);
+                        iphoneCompanyElem = new XElement("name_user", messageLoop.C_User_In_Room.UserNotType.NameUser);
+                        elementMessUser.Add(iphoneCompanyElem);
+                        iphoneCompanyElem = new XElement("img_user", "");
+                        elementMessUser.Add(iphoneCompanyElem);
+                        elementOneMess.Add(elementMessUser);
+                        elementRoomMess.Add(elementOneMess);
+                    }
+                    elementRoom.Add(elementRoomMess);
+                    element.Add(elementRoom);
+                }
+                XD.Add(element);
+                return XD.ToString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
 
         public static string struct_all_room_to_string(StructDocMess mess)
         {
