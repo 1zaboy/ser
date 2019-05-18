@@ -107,7 +107,7 @@ namespace ser.XmlParser
                     iphoneCompanyElem = new XElement("name_room", uir.C_Room.NameRoom);
                     elementRoom.Add(iphoneCompanyElem);
 
-                    var messallInRoom = dbb.message_on_room.Where(t => t.C_User_In_Room.C_Room.TableId == uir.C_Room.TableId).ToList().First();
+                    var messallInRoom = dbb.message_on_room.Where(t => t.C_User_In_Room.C_Room.TableId == uir.C_Room.TableId).ToList().FirstOrDefault();
                     XElement elementRoomMess = new XElement("Mess_in_room");
 
                     XElement elementOneMess = new XElement("Mess");
