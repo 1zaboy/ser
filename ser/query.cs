@@ -23,6 +23,7 @@ namespace ser
             Dictionary.Add("2", new Func<StructDocMess, bool>(case2));
             Dictionary.Add("10", new Func<StructDocMess, bool>(case10));
             Dictionary.Add("13", new Func<StructDocMess, bool>(case13));
+            Dictionary.Add("14", new Func<StructDocMess, bool>(case14));
             Dictionary.Add("20", new Func<StructDocMess, bool>(case20));
             Dictionary.Add("21", new Func<StructDocMess, bool>(case21));
             Dictionary.Add("22", new Func<StructDocMess, bool>(case22));
