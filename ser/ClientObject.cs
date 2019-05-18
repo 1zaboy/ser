@@ -52,7 +52,7 @@ namespace ser
                     try
                     {
                         message = GetMessage();
-                        Console.WriteLine(message);
+                        //Console.WriteLine(message);
                         string i = XmlParser.XmlParser.GetIndexCommand(message);
                         query.Dictionary[i].DynamicInvoke(XmlParser.XmlParser.string_to_struct(message));
                     }
@@ -83,6 +83,7 @@ namespace ser
             {
                 Console.WriteLine(str);
                 byte[] data = Encoding.UTF8.GetBytes(str);
+                Console.WriteLine("Send count bytes: {0}", data.Length);
                 Stream.Write(data, 0, data.Length);
                 return true;
             }

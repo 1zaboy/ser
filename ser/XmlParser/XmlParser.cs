@@ -161,7 +161,7 @@ namespace ser.XmlParser
                 element.Add(iphoneCompanyElem);
 
 
-                var userAllRooms = dbb.C_User_In_Room.Where(t => t.UserNotType.Id.ToString() == mess.index_user).ToList();
+                var userAllRooms = dbb.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room).ToList();
                 if (userAllRooms.Count >= 0)
                 {
                     foreach (var uir in userAllRooms.Take(1))
