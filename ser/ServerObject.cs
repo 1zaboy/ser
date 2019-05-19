@@ -29,9 +29,13 @@ namespace ser
                 if (client != null)
                 {
                     clients.Remove(client);
-                    var sqlObj = M.UserNotType.Where(t => t.index_in_list == _index).ToList().First();
-                    sqlObj.index_in_list = null;
-                    M.SaveChanges();
+                    var sqlObj = M.UserNotType.Where(t => t.index_in_list == _index).ToList();
+                    if (sqlObj.Count > 0)
+                    {
+                        sqlObj.First().index_in_list = null;
+                        M.SaveChanges();
+                    }
+                    
                 }
             }
             catch (Exception e)
