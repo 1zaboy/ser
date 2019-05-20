@@ -85,7 +85,7 @@ namespace ser
                 byte[] data = Encoding.UTF8.GetBytes(str);
                 byte[] countBytes = BitConverter.GetBytes(data.Length);
                 Console.WriteLine("Send count bytes: {0}", data.Length);
-                byte[] SendArray = countBytes.Union(data).ToArray();
+                byte[] SendArray = countBytes.Concat(data).ToArray();
                 Stream.Write(SendArray, 0, SendArray.Length);
                 return true;
             }
