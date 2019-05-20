@@ -83,8 +83,10 @@ namespace ser
             {
                 Console.WriteLine(str);
                 byte[] data = Encoding.UTF8.GetBytes(str);
+                byte[] countBytes = BitConverter.GetBytes(data.Length);
                 Console.WriteLine("Send count bytes: {0}", data.Length);
-                Stream.Write(data, 0, data.Length);
+                byte[] SendArray = countBytes.Union(data).ToArray();
+                Stream.Write(SendArray, 0, SendArray.Length);
                 return true;
             }
             catch (Exception e)
