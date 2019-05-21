@@ -30,7 +30,7 @@ namespace ser
             Dictionary.Add("25", new Func<StructDocMess, bool>(case25));
             Dictionary.Add("80", new Func<StructDocMess, bool>(case80));
             Dictionary.Add("85", new Func<StructDocMess, bool>(case85));
-            Dictionary.Add("90", new Func<StructDocMess, bool>(case85));
+            Dictionary.Add("90", new Func<StructDocMess, bool>(case90));
         }
 
         public bool case1(StructDocMess mess)//log
