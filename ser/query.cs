@@ -97,7 +97,7 @@ namespace ser
                 throw;
             }
         }
-      
+
         public bool case10(StructDocMess mess)//create room
         {
             try
@@ -271,10 +271,11 @@ namespace ser
                     .Where(t => t.C_Room.TableId == mess.index_room).ToList();
                 foreach (var VARIABLE in usersInRoom)
                 {
-                    int v2 = 0;
+                    int v2 = -1;
                     if (VARIABLE.UserNotType.index_in_list.HasValue)
                         v2 = VARIABLE.UserNotType.index_in_list.Value;
-                    ServerObject.clients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                    if (v2 != -1)
+                        ServerObject.clients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                 }
 
                 return true;
@@ -307,7 +308,7 @@ namespace ser
                 Console.WriteLine(e);
                 throw;
             }
-            
+
 
         }
 
@@ -329,7 +330,7 @@ namespace ser
                     mess.index_user = usersInRoom[1].UserNotType.Id.ToString();
                     mess.name_user = usersInRoom[1].UserNotType.NameUser;
                     mess.text_message =
-                        ((IPEndPoint) (ServerObject.clients[v4].ClientObject.client.Client.RemoteEndPoint)).Address
+                        ((IPEndPoint)(ServerObject.clients[v4].ClientObject.client.Client.RemoteEndPoint)).Address
                         .ToString() +
                         ":" + ServerObject.clients[v4].port_udp;
                     ServerObject.clients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
@@ -337,7 +338,7 @@ namespace ser
                     mess.index_user = usersInRoom[0].UserNotType.Id.ToString();
                     mess.name_user = usersInRoom[0].UserNotType.NameUser;
                     mess.text_message =
-                        ((IPEndPoint) (ServerObject.clients[v2].ClientObject.client.Client.RemoteEndPoint)).Address
+                        ((IPEndPoint)(ServerObject.clients[v2].ClientObject.client.Client.RemoteEndPoint)).Address
                         .ToString() +
                         ":" + ServerObject.clients[v2].port_udp;
                     ServerObject.clients[v4].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
@@ -369,7 +370,7 @@ namespace ser
                 Console.WriteLine(e);
                 throw;
             }
-           
+
         }
     }
 }
