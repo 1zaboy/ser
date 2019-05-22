@@ -65,7 +65,7 @@ namespace ser
                             {
                                 int r = user.First().index_in_list + 1 ?? default(int);
                                 if (r != default(int))
-                                    ServerObject.clients[r - 1].port_udp = remoteIp.Port;
+                                    ServerObject.DictionaryClients[r].port_udp = remoteIp.Port;
                             }
 
                             //for (int i = 0; i < ServerObject.clients.Count; i++)

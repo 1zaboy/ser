@@ -13,8 +13,11 @@ namespace ser
     class ServerObject
     {
         static TcpListener tcpListener; // сервер для прослушивания
-        static public List<MainListUser> clients = new List<MainListUser>(); // все подключения
+        //static public List<MainListUser> clients = new List<MainListUser>(); // все подключения
+        static public Dictionary<int, MainListUser> DictionaryClients = new Dictionary<int, MainListUser>();
+        static public int IndexUser = 0;
         dbb M = new dbb();
+
 
         //CLEAR ITEM LIST
         protected internal void RemoveConnection(string id)
@@ -22,14 +25,16 @@ namespace ser
             try
             {
                 // получаем по id закрытое подключение
-
-                MainListUser client = clients.FirstOrDefault(c => c.ClientObject.Id == id);
-                var _index = clients.FindIndex(a => a == client);
+                var client = DictionaryClients.FirstOrDefault(c => c.Value.ClientObject.Id == id);
+                //MainListUser client = clients.FirstOrDefault(c => c.ClientObject.Id == id);
+                //var _index = clients.FindIndex(a => a == client);
                 // и удаляем его из списка подключений
-                if (client != null)
+                if (client.Value != null)
                 {
-                    clients.Remove(client);
-                    var sqlObj = M.UserNotType.Where(t => t.index_in_list == _index).ToList();
+                    DictionaryClients.Remove(client.Key);
+                    //clients.Remove(client.);
+                    //var sqlObj = M.UserNotType.Where(t => t.index_in_list == _index).ToList();
+                    var sqlObj = M.UserNotType.Where(t => t.index_in_list == client.Key).ToList();
                     if (sqlObj.Count > 0)
                     {
                         sqlObj.First().index_in_list = null;
@@ -59,7 +64,9 @@ namespace ser
                     MainListUser listUser = new MainListUser();
                     listUser.ClientObject = new ClientObject(tcpClient, this);
 
-                    clients.Add(listUser);
+                    //clients.Add(listUser);
+                    DictionaryClients.Add(IndexUser, listUser);
+                    IndexUser += 1;
                 }
             }
             catch (Exception ex)
@@ -73,10 +80,9 @@ namespace ser
         protected internal void Disconnect()
         {
             tcpListener.Stop(); //остановка сервера
-
-            for (int i = 0; i < clients.Count; i++)
+            foreach (var t in DictionaryClients)
             {
-                clients[i].ClientObject.Close(); //отключение клиента
+                t.Value.ClientObject.Close();
             }
             Environment.Exit(0); //завершение процесса
         }
