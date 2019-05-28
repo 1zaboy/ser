@@ -189,6 +189,8 @@ namespace ser
                         //ServerObject.clients[r - 1].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                         if (ServerObject.DictionaryClients.ContainsKey(r-1))
                         {
+                            mess.count_users_in_room = _db.C_User_In_Room
+                                .Where(t => t.C_Room.TableId == mess.index_room).ToList().Count;
                             ServerObject.DictionaryClients[r-1].ClientObject
                                 .SendMess(XmlParser.XmlParser.struct_to_string(mess));
                             return true;
