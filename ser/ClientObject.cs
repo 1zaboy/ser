@@ -54,7 +54,11 @@ namespace ser
                         message = GetMessage();
                         //Console.WriteLine(message);
                         string i = XmlParser.XmlParser.GetIndexCommand(message);
-                        query.Dictionary[i].DynamicInvoke(XmlParser.XmlParser.string_to_struct(message));
+                        if (i != 0.ToString())
+                        {
+                            query.Dictionary[i].DynamicInvoke(XmlParser.XmlParser.string_to_struct(message));
+                        }
+                        
                     }
                     catch (Exception e)
                     {
