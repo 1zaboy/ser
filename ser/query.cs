@@ -183,11 +183,20 @@ namespace ser
                 if (user.Any())
                 {
                     int r = user.First().index_in_list + 1 ?? default(int);
+                    Console.WriteLine("invite index: {0}", r);
                     if (r != default(int) && main_user.Id != user.First().Id)
                     {
                         //ServerObject.clients[r - 1].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
-                        ServerObject.DictionaryClients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
-                        return true;
+                        if (ServerObject.DictionaryClients.ContainsKey(r-1))
+                        {
+                            ServerObject.DictionaryClients[r-1].ClientObject
+                                .SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
                     }
                     else
                     {
