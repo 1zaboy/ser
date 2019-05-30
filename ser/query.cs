@@ -393,7 +393,8 @@ namespace ser
             {
                 C_User_In_Room userInRoom = _db.C_User_In_Room
                     .Where(t => t.UserNotType.Id.ToString() == mess.index_user && t.C_Room.TableId == mess.index_room).ToList().First();
-                _db.C_User_In_Room.Remove(userInRoom);
+                userInRoom.Participant = false;
+                //_db.C_User_In_Room.Remove(userInRoom);
                 _db.SaveChanges();
                 return true;
             }
