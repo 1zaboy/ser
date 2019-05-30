@@ -120,6 +120,7 @@ namespace ser
                     _db.SaveChanges();
 
                     mess.index_room = room.TableId;
+                    mess.count_users_in_room = 1;
                     _clientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                 }
                 return true;

@@ -67,19 +67,6 @@ namespace ser
                                 if (r != default(int) && ServerObject.DictionaryClients.ContainsKey(r))
                                     ServerObject.DictionaryClients[r].port_udp = remoteIp.Port;
                             }
-
-                            //for (int i = 0; i < ServerObject.clients.Count; i++)
-                            //{
-                            //    IPAddress address =
-                            //        ((IPEndPoint) (ServerObject.clients[i].ClientObject.client.Client.RemoteEndPoint))
-                            //        .Address;
-                            //    if (address.MapToIPv4().ToString() == remoteIp.Address.MapToIPv4().ToString())
-                            //    {
-                            //        ServerObject.clients[i].port_udp = remoteIp.Port;
-                            //        Console.WriteLine("Udp: " + remoteIp.Address + ":" + remoteIp.Port);
-                            //        break;
-                            //    }
-                            //}
                         }
                     }
                 }
