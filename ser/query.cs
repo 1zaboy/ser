@@ -187,11 +187,11 @@ namespace ser
                     if (r != default(int) && main_user.Id != user.First().Id)
                     {
                         //ServerObject.clients[r - 1].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
-                        if (ServerObject.DictionaryClients.ContainsKey(r-1))
+                        if (ServerObject.DictionaryClients.ContainsKey(r - 1))
                         {
                             mess.count_users_in_room = _db.C_User_In_Room
                                 .Where(t => t.C_Room.TableId == mess.index_room).ToList().Count;
-                            ServerObject.DictionaryClients[r-1].ClientObject
+                            ServerObject.DictionaryClients[r - 1].ClientObject
                                 .SendMess(XmlParser.XmlParser.struct_to_string(mess));
                             return true;
                         }
@@ -290,7 +290,8 @@ namespace ser
                     if (VARIABLE.UserNotType.index_in_list.HasValue)
                         v2 = VARIABLE.UserNotType.index_in_list.Value;
                     if (v2 != -1)
-                        ServerObject.DictionaryClients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                        if (ServerObject.DictionaryClients.ContainsKey(v2))
+                            ServerObject.DictionaryClients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                     //ServerObject.clients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                 }
 
@@ -314,7 +315,8 @@ namespace ser
                     int v2 = 0;
                     if (VARIABLE.UserNotType.index_in_list.HasValue)
                         v2 = VARIABLE.UserNotType.index_in_list.Value;
-                    ServerObject.DictionaryClients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                    if (ServerObject.DictionaryClients.ContainsKey(v2))
+                        ServerObject.DictionaryClients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                     //ServerObject.clients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                 }
 
@@ -344,27 +346,35 @@ namespace ser
                     if (usersInRoom[1].UserNotType.index_in_list.HasValue)
                         v4 = usersInRoom[1].UserNotType.index_in_list.Value;
 
-                    mess.index_user = usersInRoom[1].UserNotType.Id.ToString();
-                    mess.name_user = usersInRoom[1].UserNotType.NameUser;
-                    mess.text_message =
-                        ((IPEndPoint)(ServerObject.DictionaryClients[v4].ClientObject.client.Client.RemoteEndPoint)).Address
-                        .ToString() +
-                        ":" + ServerObject.DictionaryClients[v4].port_udp;
-                    //mess.text_message =
-                    //    ((IPEndPoint)(ServerObject.clients[v4].ClientObject.client.Client.RemoteEndPoint)).Address
-                    //    .ToString() +
-                    //    ":" + ServerObject.clients[v4].port_udp;
-                    ServerObject.DictionaryClients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                    if (ServerObject.DictionaryClients.ContainsKey(v2))
+                    {
+                        mess.index_user = usersInRoom[1].UserNotType.Id.ToString();
+                        mess.name_user = usersInRoom[1].UserNotType.NameUser;
+                        mess.text_message =
+                            ((IPEndPoint)(ServerObject.DictionaryClients[v4].ClientObject.client.Client.RemoteEndPoint)).Address
+                            .ToString() +
+                            ":" + ServerObject.DictionaryClients[v4].port_udp;
+                        //mess.text_message =
+                        //    ((IPEndPoint)(ServerObject.clients[v4].ClientObject.client.Client.RemoteEndPoint)).Address
+                        //    .ToString() +
+                        //    ":" + ServerObject.clients[v4].port_udp;
 
-                    mess.index_user = usersInRoom[0].UserNotType.Id.ToString();
-                    mess.name_user = usersInRoom[0].UserNotType.NameUser;
-                    mess.text_message =
-                        ((IPEndPoint)(ServerObject.DictionaryClients[v2].ClientObject.client.Client.RemoteEndPoint)).Address
-                        .ToString() +
-                        ":" + ServerObject.DictionaryClients[v2].port_udp;
-                    ServerObject.DictionaryClients[v4].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                        ServerObject.DictionaryClients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                    }
 
+                    if (ServerObject.DictionaryClients.ContainsKey(v4))
+                    {
+                        mess.index_user = usersInRoom[0].UserNotType.Id.ToString();
+                        mess.name_user = usersInRoom[0].UserNotType.NameUser;
+                        mess.text_message =
+                            ((IPEndPoint)(ServerObject.DictionaryClients[v2].ClientObject.client.Client
+                                .RemoteEndPoint)).Address
+                            .ToString() +
+                            ":" + ServerObject.DictionaryClients[v2].port_udp;
 
+                        ServerObject.DictionaryClients[v4].ClientObject
+                            .SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                    }
                 }
 
                 return true;
