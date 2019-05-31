@@ -24,6 +24,7 @@ namespace ser
             Dictionary.Add("10", new Func<StructDocMess, bool>(case10));
             Dictionary.Add("13", new Func<StructDocMess, bool>(case13));
             Dictionary.Add("14", new Func<StructDocMess, bool>(case14));
+            Dictionary.Add("15", new Func<StructDocMess, bool>(case15));
             Dictionary.Add("20", new Func<StructDocMess, bool>(case20));
             Dictionary.Add("21", new Func<StructDocMess, bool>(case21));
             Dictionary.Add("22", new Func<StructDocMess, bool>(case22));
@@ -165,6 +166,21 @@ namespace ser
             {
                 //string message_string = XmlParser.XmlParser.struct_all_room_to_string(mess);
                 string message_string = XmlParser.XmlParser.struct_all_mess_in_room_to_string(mess);
+                _clientObject.SendMess(message_string);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public bool case15(StructDocMess mess)
+        {
+            try
+            {
+                string message_string = XmlParser.XmlParser.struct_one_room_list_user_to_string(mess);
                 _clientObject.SendMess(message_string);
                 return true;
             }

@@ -197,9 +197,22 @@ namespace ser.XmlParser
 
                         elementRoom.Add(elementRoomMess);
                         element.Add(elementRoom);
+
+                        XElement elementAllUsers = new XElement("Users");
+                        foreach (var us in userAllRooms)
+                        {
+                            XElement elementUsers = new XElement("User");
+                            iphoneCompanyElem = new XElement("index_user", us.UserNotType.Id);
+                            elementUsers.Add(iphoneCompanyElem);
+                            iphoneCompanyElem = new XElement("name_user", us.UserNotType.NameUser);
+                            elementUsers.Add(iphoneCompanyElem);
+                            iphoneCompanyElem = new XElement("img_user", "");
+                            elementUsers.Add(iphoneCompanyElem);
+                            elementAllUsers.Add(elementUsers);
+                        }
+                        element.Add(elementAllUsers);
                     }
                 }
-
                 XD.Add(element);
                 return XD.ToString();
             }
@@ -320,10 +333,41 @@ namespace ser.XmlParser
                     elementRoomMess.Add(elementMessUser);
                 }
                 elementRoom.Add(elementRoomMess);
+                element.Add(elementRoom);
 
-                var allUserInRooms = dbb.C_User_In_Room.Where(t => t.C_Room.TableId == i).ToList();
+                XD.Add(element);
+                return XD.ToString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
+        }
+
+        public static string struct_one_room_list_user_to_string(StructDocMess mess)
+        {
+            dbb dbb = new dbb();
+            try
+            {
+                var XD = new XDocument();
+                XElement element = new XElement("Message");
+                XElement iphoneCompanyElem = new XElement("index_command", mess.index_command);
+                element.Add(iphoneCompanyElem);
+
+
+                var userAllRooms = dbb.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room).ToList();
+
+                XElement elementRoom = new XElement("Room");
+                iphoneCompanyElem = new XElement("index_room", userAllRooms[0].C_Room.TableId);
+                elementRoom.Add(iphoneCompanyElem);
+                iphoneCompanyElem = new XElement("name_room", userAllRooms[0].C_Room.NameRoom);
+                elementRoom.Add(iphoneCompanyElem);
+                
+
                 XElement elementAllUsers = new XElement("Users");
-                foreach (var us in allUserInRooms)
+                foreach (var us in userAllRooms)
                 {
                     XElement elementUsers = new XElement("User");
                     iphoneCompanyElem = new XElement("index_user", us.UserNotType.Id);
