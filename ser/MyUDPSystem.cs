@@ -64,9 +64,9 @@ namespace ser
                             var user = dataBaceDbb.UserNotType.Where(t => t.Id.ToString() == str_with_array).ToList();
                             if (user.Any())
                             {
-                                int r = user.First().index_in_list ?? default(int);
+                                int r = user.First().index_in_list ?? -1;
                                 Console.WriteLine("par r: {0}", user.First().index_in_list);
-                                if (r != default(int) && ServerObject.DictionaryClients.ContainsKey(r))
+                                if (r != -1 && ServerObject.DictionaryClients.ContainsKey(r))
                                 {
                                     ServerObject.DictionaryClients[r].port_udp = remoteIp.Port;
                                     Console.WriteLine("Enter port in list: {0}", remoteIp.Port);
