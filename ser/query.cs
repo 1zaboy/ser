@@ -364,6 +364,13 @@ namespace ser
                     if (usersInRoom[1].UserNotType.index_in_list.HasValue)
                         v4 = usersInRoom[1].UserNotType.index_in_list.Value;
                     Console.WriteLine("v2-{0}:v4-{1}",v2,v4);
+
+                    foreach (var VARIABLE in ServerObject.DictionaryClients)
+                    {
+                        Console.WriteLine("all key\n");
+                        Console.WriteLine(VARIABLE.Key);
+                    }
+
                     if (ServerObject.DictionaryClients.ContainsKey(v2) && ServerObject.DictionaryClients.ContainsKey(v4))
                     {
                         mess.index_user = usersInRoom[1].UserNotType.Id.ToString();
