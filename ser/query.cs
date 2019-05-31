@@ -363,8 +363,8 @@ namespace ser
                     int v4 = 0;
                     if (usersInRoom[1].UserNotType.index_in_list.HasValue)
                         v4 = usersInRoom[1].UserNotType.index_in_list.Value;
-
-                    if (ServerObject.DictionaryClients.ContainsKey(v2))
+                    Console.WriteLine("v2-{0}:v4-{1}",v2,v4);
+                    if (ServerObject.DictionaryClients.ContainsKey(v2) && ServerObject.DictionaryClients.ContainsKey(v4))
                     {
                         mess.index_user = usersInRoom[1].UserNotType.Id.ToString();
                         mess.name_user = usersInRoom[1].UserNotType.NameUser;
@@ -372,16 +372,8 @@ namespace ser
                             ((IPEndPoint)(ServerObject.DictionaryClients[v4].ClientObject.client.Client.RemoteEndPoint)).Address
                             .ToString() +
                             ":" + ServerObject.DictionaryClients[v4].port_udp;
-                        //mess.text_message =
-                        //    ((IPEndPoint)(ServerObject.clients[v4].ClientObject.client.Client.RemoteEndPoint)).Address
-                        //    .ToString() +
-                        //    ":" + ServerObject.clients[v4].port_udp;
-
                         ServerObject.DictionaryClients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
-                    }
 
-                    if (ServerObject.DictionaryClients.ContainsKey(v4))
-                    {
                         mess.index_user = usersInRoom[0].UserNotType.Id.ToString();
                         mess.name_user = usersInRoom[0].UserNotType.NameUser;
                         mess.text_message =
@@ -389,7 +381,6 @@ namespace ser
                                 .RemoteEndPoint)).Address
                             .ToString() +
                             ":" + ServerObject.DictionaryClients[v2].port_udp;
-
                         ServerObject.DictionaryClients[v4].ClientObject
                             .SendMess(XmlParser.XmlParser.struct_to_string(mess));
                     }
