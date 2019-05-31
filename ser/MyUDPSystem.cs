@@ -59,11 +59,13 @@ namespace ser
                         int f = 0;
                         if (arrayStr[0] == "1" && Int32.TryParse(arrayStr[1], out f))
                         {
+                            Console.WriteLine("par array str: {0}", arrayStr);
                             string str_with_array = arrayStr[1];
                             var user = dataBaceDbb.UserNotType.Where(t => t.Id.ToString() == str_with_array).ToList();
                             if (user.Any())
                             {
                                 int r = user.First().index_in_list ?? default(int);
+                                Console.WriteLine("par r: {0}", r);
                                 if (r != default(int) && ServerObject.DictionaryClients.ContainsKey(r))
                                 {
                                     ServerObject.DictionaryClients[r].port_udp = remoteIp.Port;
