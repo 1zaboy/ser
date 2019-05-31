@@ -65,7 +65,7 @@ namespace ser
                             if (user.Any())
                             {
                                 int r = user.First().index_in_list ?? default(int);
-                                Console.WriteLine("par r: {0}", r);
+                                Console.WriteLine("par r: {0}", user.First().index_in_list);
                                 if (r != default(int) && ServerObject.DictionaryClients.ContainsKey(r))
                                 {
                                     ServerObject.DictionaryClients[r].port_udp = remoteIp.Port;
