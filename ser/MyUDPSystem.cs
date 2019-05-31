@@ -59,7 +59,7 @@ namespace ser
                         int f = 0;
                         if (arrayStr[0] == "1" && Int32.TryParse(arrayStr[1], out f))
                         {
-                            Console.WriteLine("par array str: {0}", arrayStr);
+                            Console.WriteLine("par array str: {0}", arrayStr[1]);
                             string str_with_array = arrayStr[1];
                             var user = dataBaceDbb.UserNotType.Where(t => t.Id.ToString() == str_with_array).ToList();
                             if (user.Any())
