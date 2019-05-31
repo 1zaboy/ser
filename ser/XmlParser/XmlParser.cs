@@ -198,19 +198,19 @@ namespace ser.XmlParser
                         elementRoom.Add(elementRoomMess);
                         element.Add(elementRoom);
 
-                        XElement elementAllUsers = new XElement("Users");
-                        foreach (var us in userAllRooms)
-                        {
-                            XElement elementUsers = new XElement("User");
-                            iphoneCompanyElem = new XElement("index_user", us.UserNotType.Id);
-                            elementUsers.Add(iphoneCompanyElem);
-                            iphoneCompanyElem = new XElement("name_user", us.UserNotType.NameUser);
-                            elementUsers.Add(iphoneCompanyElem);
-                            iphoneCompanyElem = new XElement("img_user", "");
-                            elementUsers.Add(iphoneCompanyElem);
-                            elementAllUsers.Add(elementUsers);
-                        }
-                        element.Add(elementAllUsers);
+                        //XElement elementAllUsers = new XElement("Users");
+                        //foreach (var us in userAllRooms)
+                        //{
+                        //    XElement elementUsers = new XElement("User");
+                        //    iphoneCompanyElem = new XElement("index_user", us.UserNotType.Id);
+                        //    elementUsers.Add(iphoneCompanyElem);
+                        //    iphoneCompanyElem = new XElement("name_user", us.UserNotType.NameUser);
+                        //    elementUsers.Add(iphoneCompanyElem);
+                        //    iphoneCompanyElem = new XElement("img_user", "");
+                        //    elementUsers.Add(iphoneCompanyElem);
+                        //    elementAllUsers.Add(elementUsers);
+                        //}
+                        //element.Add(elementAllUsers);
                     }
                 }
                 XD.Add(element);
