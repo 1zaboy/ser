@@ -368,6 +368,7 @@ namespace ser
                     {
                         mess.index_user = usersInRoom[1].UserNotType.Id.ToString();
                         mess.name_user = usersInRoom[1].UserNotType.NameUser;
+                        Console.WriteLine("v4 port-{0}", ServerObject.DictionaryClients[v4].port_udp);
                         mess.text_message =
                             ((IPEndPoint)(ServerObject.DictionaryClients[v4].ClientObject.client.Client.RemoteEndPoint)).Address
                             .ToString() +
@@ -376,6 +377,7 @@ namespace ser
 
                         mess.index_user = usersInRoom[0].UserNotType.Id.ToString();
                         mess.name_user = usersInRoom[0].UserNotType.NameUser;
+                        Console.WriteLine("v2 port-{0}", ServerObject.DictionaryClients[v2].port_udp);
                         mess.text_message =
                             ((IPEndPoint)(ServerObject.DictionaryClients[v2].ClientObject.client.Client
                                 .RemoteEndPoint)).Address
