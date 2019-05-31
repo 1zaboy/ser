@@ -242,7 +242,8 @@ namespace ser
                     if (r != default(int))
                     {
                         //ServerObject.clients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
-                        ServerObject.DictionaryClients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                        if (ServerObject.DictionaryClients.ContainsKey(r))
+                            ServerObject.DictionaryClients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                     }
                 }
 
