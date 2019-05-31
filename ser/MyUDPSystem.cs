@@ -68,6 +68,8 @@ namespace ser
                                 {
                                     ServerObject.DictionaryClients[r].port_udp = remoteIp.Port;
                                     Console.WriteLine("Enter port in list: {0}", remoteIp.Port);
+
+                                    Console.WriteLine("Enter port in dic: {0}", ServerObject.DictionaryClients[r].port_udp);
                                 }
                             }
                         }
