@@ -78,7 +78,8 @@ namespace ser
         {
             try
             {
-                var t = _mmm.UserNotType.ToList();
+                dbb ddDbb = new dbb();
+                var t = ddDbb.UserNotType.ToList();
                 if (t.Any())
                 {
                     foreach (var VARIABLE in t)
