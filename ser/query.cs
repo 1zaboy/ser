@@ -39,10 +39,13 @@ namespace ser
             try
             {
                 var r = _db.UserNotType.Where(t => t.NameUser == mess.name_user && t.Password == mess.password_user).ToList();
-                if (r.Any())
+                var d = ServerObject.DictionaryClients.Where(t => t.Value.ClientObject == _clientObject).ToList();
+                if (r.Any() && d.Any())
                 {
                     //r.First().index_in_list = ser.ServerObject.clients.FindIndex(t => t.ClientObject == _clientObject);
-                    r.First().index_in_list = ServerObject.DictionaryClients.First(t => t.Value.ClientObject == _clientObject).Key;
+                    
+                    r.First().index_in_list = d.First().Key;
+                    Console.WriteLine("case 1: " + d.First().Key);
                     _db.SaveChanges();
 
                     mess.index_user = r.First().Id.ToString();
@@ -363,7 +366,7 @@ namespace ser
                     int v4 = 0;
                     if (usersInRoom[1].UserNotType.index_in_list.HasValue)
                         v4 = usersInRoom[1].UserNotType.index_in_list.Value;
-                    Console.WriteLine("v2-{0}:v4-{1}",v2,v4);
+                    Console.WriteLine("v2-{0}:v4-{1}", v2, v4);
 
                     Console.WriteLine("all key\n");
                     foreach (var VARIABLE in ServerObject.DictionaryClients)
