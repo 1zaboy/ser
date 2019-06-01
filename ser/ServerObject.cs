@@ -16,7 +16,7 @@ namespace ser
         //static public List<MainListUser> clients = new List<MainListUser>(); // все подключения
         static public Dictionary<int, MainListUser> DictionaryClients = new Dictionary<int, MainListUser>();
         static public int IndexUser = 0;
-        dbb M = new dbb();
+        
 
 
         //CLEAR ITEM LIST
@@ -24,6 +24,7 @@ namespace ser
         {
             try
             {
+                dbb M = new dbb();
                 // получаем по id закрытое подключение
                 var client = DictionaryClients.FirstOrDefault(c => c.Value.ClientObject.Id == id);
                 //MainListUser client = clients.FirstOrDefault(c => c.ClientObject.Id == id);

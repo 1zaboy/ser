@@ -14,7 +14,6 @@ namespace ser
     class query
     {
         public Dictionary<string, Delegate> Dictionary = new Dictionary<string, Delegate>();
-        public dbb _db = new dbb();
         private ClientObject _clientObject;
         public query(ClientObject clientObject)
         {
@@ -38,6 +37,7 @@ namespace ser
         {
             try
             {
+                dbb _db = new dbb();
                 var r = _db.UserNotType.Where(t => t.NameUser == mess.name_user && t.Password == mess.password_user).ToList();
                 var d = ServerObject.DictionaryClients.Where(t => t.Value.ClientObject == _clientObject).ToList();
                 if (r.Any() && d.Any())
@@ -75,6 +75,7 @@ namespace ser
         {
             try
             {
+                dbb _db = new dbb();
                 var r = _db.UserNotType.Where(t => t.NameUser == mess.name_user && t.Password == mess.password_user).ToList();
                 if (!r.Any())
                 {
@@ -112,6 +113,7 @@ namespace ser
         {
             try
             {
+                dbb _db = new dbb();
                 var user = _db.UserNotType.First(t => t.Id.ToString() == mess.index_user);
                 if (user != null)
                 {
@@ -202,6 +204,7 @@ namespace ser
         {
             try
             {
+                dbb _db = new dbb();
                 var main_user = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList().First();
                 var user = _db.UserNotType.Where(t => t.NameUser == mess.text_message).ToList();
                 if (user.Any())
@@ -248,6 +251,7 @@ namespace ser
         {
             try
             {
+                dbb _db = new dbb();
                 var room = _db.C_Room.Where(t => t.TableId == mess.index_room).ToList().First();
                 var user = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList().First();
 
@@ -297,6 +301,7 @@ namespace ser
         {
             try
             {
+                dbb _db = new dbb();
                 var Room = _db.C_Room.Where(t => t.TableId == mess.index_room).ToList().First();
                 var User = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList().First();
                 message_on_room messageOnRoom = new message_on_room();
@@ -333,6 +338,7 @@ namespace ser
         {
             try
             {
+                dbb _db = new dbb();
                 var usersInRoom = _db.C_User_In_Room
                     .Where(t => t.C_Room.TableId == mess.index_room && t.UserNotType.Id.ToString() != mess.index_user).ToList();
                 foreach (var VARIABLE in usersInRoom)
@@ -360,6 +366,7 @@ namespace ser
         {
             try
             {
+                dbb _db = new dbb();
                 if (mess.text_message == "True")
                 {
                     var usersInRoom = _db.C_User_In_Room
@@ -415,6 +422,7 @@ namespace ser
         {
             try
             {
+                dbb _db = new dbb();
                 C_User_In_Room userInRoom = _db.C_User_In_Room
                     .Where(t => t.UserNotType.Id.ToString() == mess.index_user && t.C_Room.TableId == mess.index_room).ToList().First();
                 userInRoom.Participant = false;
