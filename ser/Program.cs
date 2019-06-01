@@ -23,6 +23,13 @@ namespace ser
            
             try
             {
+                var r = _mmm.UserNotType.ToList();
+                foreach (var VARIABLE in r)
+                {
+                    VARIABLE.index_in_list = null;
+                }
+                _mmm.SaveChanges();
+
                 Init();
                 while (true)
                 {
