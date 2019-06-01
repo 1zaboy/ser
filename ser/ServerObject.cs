@@ -35,7 +35,7 @@ namespace ser
                     //clients.Remove(client.);
                     //var sqlObj = M.UserNotType.Where(t => t.index_in_list == _index).ToList();
                     var sqlObj = M.UserNotType.Where(t => t.index_in_list == client.Key).ToList();
-                    if (sqlObj.Count > 0)
+                    if (sqlObj.Any())
                     {
                         sqlObj.First().index_in_list = null;
                         M.SaveChanges();
