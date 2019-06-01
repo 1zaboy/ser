@@ -63,12 +63,14 @@ namespace ser
                             var user = dataBaceDbb.UserNotType.Where(t => t.Id.ToString() == str_with_array).ToList();
                             if (user.Any())
                             {
-                                int r = user.First().index_in_list ?? -1;
+                                int r = -1;
+                                if (user.First().index_in_list.HasValue)
+                                    r = user.First().index_in_list.Value;
                                 Console.WriteLine("par r: {0}", user.First().index_in_list);
                                 Console.WriteLine("List Dictinary");
                                 foreach (var VARIABLE in ServerObject.DictionaryClients)
                                 {
-                                    Console.WriteLine("Key: {0}",VARIABLE.Key);
+                                    Console.WriteLine("Key: {0}", VARIABLE.Key);
                                 }
                                 if (r != -1 && ServerObject.DictionaryClients.ContainsKey(r))
                                 {
