@@ -43,9 +43,8 @@ namespace ser
                 if (r.Any() && d.Any())
                 {
                     //r.First().index_in_list = ser.ServerObject.clients.FindIndex(t => t.ClientObject == _clientObject);
-                    
-                    r.First().index_in_list = d.First().Key;
-                    Console.WriteLine("case 1: " + d.First().Key);
+                    r.First().index_in_list = d.Last().Key;
+                    Console.WriteLine("case 1: " + d.Last().Key);
                     _db.SaveChanges();
 
                     mess.index_user = r.First().Id.ToString();
@@ -77,7 +76,7 @@ namespace ser
                     UserNotType userNotType = new UserNotType();
                     userNotType.NameUser = mess.name_user;
                     userNotType.Password = mess.password_user;
-                    userNotType.index_in_list = ser.ServerObject.DictionaryClients.First(t => t.Value.ClientObject == _clientObject).Key;
+                    userNotType.index_in_list = ser.ServerObject.DictionaryClients.Last(t => t.Value.ClientObject == _clientObject).Key;
                     //userNotType.index_in_list = ser.ServerObject.clients.FindIndex(t => t.ClientObject == _clientObject);
                     _db.UserNotType.Add(userNotType);
                     _db.SaveChanges();
