@@ -76,7 +76,7 @@ namespace ser
                 {
                     foreach (var VARIABLE in t)
                     {
-                        Console.WriteLine("{0}:{1}:{2}", VARIABLE.Id, VARIABLE.NameUser, VARIABLE.Password);
+                        Console.WriteLine("{0}:{1}:{2}:{3}", VARIABLE.Id, VARIABLE.NameUser, VARIABLE.Password, VARIABLE.index_in_list);
                     }
                 }
                 else
