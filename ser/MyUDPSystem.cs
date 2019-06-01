@@ -66,6 +66,11 @@ namespace ser
                             {
                                 int r = user.First().index_in_list ?? -1;
                                 Console.WriteLine("par r: {0}", user.First().index_in_list);
+                                Console.WriteLine("List Dictinary");
+                                foreach (var VARIABLE in ServerObject.DictionaryClients)
+                                {
+                                    Console.WriteLine("Key: {0}",VARIABLE.Key);
+                                }
                                 if (r != -1 && ServerObject.DictionaryClients.ContainsKey(r))
                                 {
                                     ServerObject.DictionaryClients[r].port_udp = remoteIp.Port;
