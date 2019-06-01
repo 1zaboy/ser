@@ -42,10 +42,12 @@ namespace ser
                 var d = ServerObject.DictionaryClients.Where(t => t.Value.ClientObject == _clientObject).ToList();
                 if (r.Any() && d.Any())
                 {
-                    var r1 = r.First();
-                    //r.First().index_in_list = ser.ServerObject.clients.FindIndex(t => t.ClientObject == _clientObject);
-                    r1.index_in_list = d.Last().Key;
-                    _db.SaveChanges();
+                    _db.Database.ExecuteSqlCommand("update UserNotType set index_in_list =" + d.Last().Key + " where Id = " +
+                                             r.First().Id);
+                    //var r1 = r.First();
+                    ////r.First().index_in_list = ser.ServerObject.clients.FindIndex(t => t.ClientObject == _clientObject);
+                    //r1.index_in_list = d.Last().Key;
+                    //_db.SaveChanges();
                     Console.WriteLine("case 1: " + d.Last().Key);
                     
 
