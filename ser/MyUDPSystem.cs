@@ -67,7 +67,7 @@ namespace ser
                                 int r = -1;
                                 if (user1.index_in_list.HasValue)
                                     r = user1.index_in_list.Value;
-                                Console.WriteLine("par r: {0}", user1.index_in_list);
+                                Console.WriteLine("par r: {0}", r);
                                 Console.WriteLine("List Dictinary");
                                 foreach (var VARIABLE in ServerObject.DictionaryClients)
                                 {
