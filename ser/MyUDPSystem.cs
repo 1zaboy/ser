@@ -59,7 +59,6 @@ namespace ser
                         int f = 0;
                         if (arrayStr[0] == "1" && Int32.TryParse(arrayStr[1], out f))
                         {
-                            Console.WriteLine("par array str: {0}", arrayStr[1]);
                             string str_with_array = arrayStr[1];
                             var user = dataBaceDbb.UserNotType.Where(t => t.Id.ToString() == str_with_array).ToList();
                             if (user.Any())
@@ -74,8 +73,6 @@ namespace ser
                                 if (r != -1 && ServerObject.DictionaryClients.ContainsKey(r))
                                 {
                                     ServerObject.DictionaryClients[r].port_udp = remoteIp.Port;
-                                    Console.WriteLine("Enter port in list: {0}", remoteIp.Port);
-
                                     Console.WriteLine("Enter port in dic: {0}", ServerObject.DictionaryClients[r].port_udp);
                                 }
                             }
