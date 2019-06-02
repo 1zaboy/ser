@@ -333,8 +333,10 @@ namespace ser.XmlParser
                     elementRoomMess.Add(elementMessUser);
                 }
                 elementRoom.Add(elementRoomMess);
-                element.Add(elementRoom);
+                elementRoom.Add(new XElement("count_user", userAllRooms.Count));
 
+                element.Add(elementRoom);
+                
                 XD.Add(element);
                 return XD.ToString();
             }
