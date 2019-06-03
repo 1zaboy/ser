@@ -46,11 +46,11 @@ namespace ser
                 int t = 0;
                 foreach (var VARIABLE in data)
                 {
-                    myWorksheet.Cells[t, 1].Value = VARIABLE.TableId;
+                    myWorksheet.Cells[t, 1].Value = VARIABLE.TableId.ToString();
                     myWorksheet.Cells[t, 2].Value = VARIABLE.C_User_In_Room.C_Room.NameRoom;
                     myWorksheet.Cells[t, 3].Value = VARIABLE.C_User_In_Room.UserNotType.NameUser;
                     myWorksheet.Cells[t, 4].Value = VARIABLE.C_User_In_Room.UserNotType.Password;
-                    myWorksheet.Cells[t, 5].Value = VARIABLE.time_mess;
+                    myWorksheet.Cells[t, 5].Value = VARIABLE.time_mess.ToString();
                     myWorksheet.Cells[t, 6].Value = VARIABLE.text_mess;
                     t += 1;
                 }
