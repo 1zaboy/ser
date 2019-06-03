@@ -111,11 +111,12 @@ namespace ser
                 Report r = new Report();
                 var str = r.ViewMessage();
                 Console.WriteLine("Отчёт создан, он находится по адресу: {0}", str);
+                //r.sss();
+                
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                throw;
             }
         }
     }
