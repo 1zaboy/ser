@@ -15,3 +15,6 @@ E:\VS17\Projects\ser\ser\obj\Debug\ser.exe
 E:\VS17\Projects\ser\ser\obj\Debug\ser.pdb
 E:\VS17\Projects\ser\ser\bin\Debug\Database1.mdf
 E:\VS17\Projects\ser\ser\bin\Debug\Database1_log.ldf
+E:\VS17\Projects\ser\ser\bin\Debug\EPPlus.dll
+E:\VS17\Projects\ser\ser\bin\Debug\EPPlus.xml
+E:\VS17\Projects\ser\ser\bin\Debug\ru\EntityFramework.SqlServer.resources.dll

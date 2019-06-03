@@ -63,8 +63,6 @@ namespace ser
                     catch (Exception e)
                     {
                         Console.WriteLine(e.Message);
-                        message = String.Format("покинул чат");
-                        Console.WriteLine(message);
                         break;
                     }
                 }
@@ -85,10 +83,8 @@ namespace ser
         {
             try
             {
-                //Console.WriteLine(str);
                 byte[] data = Encoding.UTF8.GetBytes(str);
                 byte[] countBytes = BitConverter.GetBytes(data.Length);
-                Console.WriteLine("\nSend count bytes: {0}\n", data.Length);
                 byte[] SendArray = countBytes.Concat(data).ToArray();
                 Stream.Write(SendArray, 0, SendArray.Length);
                 return true;
