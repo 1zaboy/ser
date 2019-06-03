@@ -20,7 +20,7 @@ namespace ser
         static public Dictionary<string, Delegate> Dictionary = new Dictionary<string, Delegate>();
         static void Main()
         {
-           
+
             try
             {
                 var r = _mmm.UserNotType.ToList();
@@ -33,9 +33,13 @@ namespace ser
                 Init();
                 while (true)
                 {
-                    Console.WriteLine("Enter command");
+                    Console.WriteLine("1\tЗапуск TCP");
+                    Console.WriteLine("2\tЗапуск UDP");
+                    Console.WriteLine("3\tОтображения в консоль пользователей");
+                    Console.WriteLine("4\tСоздание отчётов о отправленных сообщениях");
                     string com = Console.ReadLine();
-                    Dictionary[com].DynamicInvoke();
+                    if (Dictionary.ContainsKey(com))
+                        Dictionary[com].DynamicInvoke();
                 }
             }
             catch (Exception ex)
@@ -49,6 +53,7 @@ namespace ser
             Dictionary.Add("1", new Action(case1));
             Dictionary.Add("2", new Action(case2));
             Dictionary.Add("3", new Action(case3));
+            Dictionary.Add("4", new Action(case4));
         }
 
         static private void case1()
@@ -89,8 +94,23 @@ namespace ser
                 }
                 else
                 {
-                    Console.WriteLine("not have users");
+                    Console.WriteLine("Пользователи отсутствуют");
                 }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        static private void case4()
+        {
+            try
+            {
+                Report r = new Report();
+                var str = r.ViewMessage();
+                Console.WriteLine("Отчёт создан, он находится по адресу: {0}", str);
             }
             catch (Exception e)
             {

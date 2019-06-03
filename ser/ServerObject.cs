@@ -16,8 +16,6 @@ namespace ser
         //static public List<MainListUser> clients = new List<MainListUser>(); // все подключения
         static public Dictionary<int, MainListUser> DictionaryClients = new Dictionary<int, MainListUser>();
         static public int IndexUser = 0;
-        
-
 
         //CLEAR ITEM LIST
         protected internal void RemoveConnection(string id)
@@ -56,7 +54,7 @@ namespace ser
             {
                 tcpListener = new TcpListener(IPAddress.Any, 3487);
                 tcpListener.Start();
-                Console.WriteLine("Сервер запущен. Ожидание подключений...");
+                Console.WriteLine("Сервер запущен.");
 
                 while (true)
                 {

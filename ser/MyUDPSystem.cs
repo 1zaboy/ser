@@ -48,8 +48,6 @@ namespace ser
                     IPEndPoint remoteIp = null;
                     byte[] data = client.Receive(ref remoteIp);
                     string str = Encoding.UTF8.GetString(data, 0, data.Length);
-                    //Console.WriteLine("info user:{0} :: {1}", remoteIp.Address, remoteIp.Port);
-                    //Console.WriteLine("UDP String:{0}", str);
                     sendInfo(str, remoteIp);
                     string[] arrayStr = str.Split(':');
                     if (arrayStr.Length > 1)
@@ -67,16 +65,10 @@ namespace ser
                                 int r = -1;
                                 if (user1.index_in_list.HasValue)
                                     r = user1.index_in_list.Value;
-                                Console.WriteLine("par r: {0}", r);
-                                Console.WriteLine("List Dictinary");
-                                foreach (var VARIABLE in ServerObject.DictionaryClients)
-                                {
-                                    Console.WriteLine("Key: {0}", VARIABLE.Key);
-                                }
                                 if (r != -1 && ServerObject.DictionaryClients.ContainsKey(r))
                                 {
                                     ServerObject.DictionaryClients[r].port_udp = remoteIp.Port;
-                                    Console.WriteLine("Enter port in dic: {0}", ServerObject.DictionaryClients[r].port_udp);
+                                    //Console.WriteLine("Enter port in dic: {0}", ServerObject.DictionaryClients[r].port_udp);
                                 }
                             }
                         }

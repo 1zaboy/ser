@@ -1,0 +1,17 @@
+E:\VS17\Projects\ser\ser\bin\Release\Database1.mdf
+E:\VS17\Projects\ser\ser\bin\Release\Database1_log.ldf
+E:\VS17\Projects\ser\ser\bin\Release\ser.exe.config
+E:\VS17\Projects\ser\ser\bin\Release\ser.exe
+E:\VS17\Projects\ser\ser\bin\Release\ser.pdb
+E:\VS17\Projects\ser\ser\bin\Release\EntityFramework.dll
+E:\VS17\Projects\ser\ser\bin\Release\EntityFramework.SqlServer.dll
+E:\VS17\Projects\ser\ser\bin\Release\EPPlus.dll
+E:\VS17\Projects\ser\ser\bin\Release\EntityFramework.xml
+E:\VS17\Projects\ser\ser\bin\Release\EntityFramework.SqlServer.xml
+E:\VS17\Projects\ser\ser\bin\Release\EPPlus.xml
+E:\VS17\Projects\ser\ser\bin\Release\ru\EntityFramework.resources.dll
+E:\VS17\Projects\ser\ser\bin\Release\ru\EntityFramework.SqlServer.resources.dll
+E:\VS17\Projects\ser\ser\obj\Release\ser.csproj.CoreCompileInputs.cache
+E:\VS17\Projects\ser\ser\obj\Release\ser.csproj.CopyComplete
+E:\VS17\Projects\ser\ser\obj\Release\ser.exe
+E:\VS17\Projects\ser\ser\obj\Release\ser.pdb
