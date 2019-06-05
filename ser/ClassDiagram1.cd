@@ -1,114 +1,121 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="ser.DATA_DB.C_Room">
-    <Position X="11" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAABgAAAAAAAAAA=</HashCode>
-      <FileName>DATA_DB\C_Room.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ser.DATA_DB.C_User_In_Room">
-    <Position X="9.25" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQgAAAAQAAgAKAAAAAAAAg=</HashCode>
-      <FileName>DATA_DB\C_User_In_Room.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ser.DATA_DB.dbb">
-    <Position X="7.5" Y="2.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgEAAAQAAAgAAAAAAAAAg=</HashCode>
-      <FileName>DATA_DB\dbb.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ser.DATA_DB.message_on_room">
-    <Position X="11" Y="6.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>EAAAAAAAAAAAAAAAAAAAAASAAAAAAAAggAAAAAAAAAA=</HashCode>
-      <FileName>DATA_DB\message_on_room.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="ser.DATA_DB.UserNotType">
-    <Position X="12.75" Y="6.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>QAACAAAAAAAAAAAAEAAAAAAAAAAAAAACgAAAAAAAAAA=</HashCode>
-      <FileName>DATA_DB\UserNotType.cs</FileName>
-    </TypeIdentifier>
-  </Class>
   <Class Name="ser.XmlParser.StructRoom.OneRoom">
-    <Position X="14.5" Y="2.25" Width="1.5" />
+    <Position X="5" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAkAAAAAAAAAAAAAAAAAAAABAAAAAAAAAg=</HashCode>
       <FileName>XmlParser\StructRoom\OneRoom.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ser.XmlParser.StructRoom.SMessage">
-    <Position X="14.5" Y="4" Width="1.5" />
+    <Position X="2" Y="4.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAABAAAAAAAAAAAAAAAAAAAAAEAAACAAAAAAAAAAAAA=</HashCode>
       <FileName>XmlParser\StructRoom\SMessage.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ser.XmlParser.StructRoom.SUser">
-    <Position X="12.75" Y="8.75" Width="1.5" />
+    <Position X="3.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>IAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAABAAA=</HashCode>
       <FileName>XmlParser\StructRoom\SUser.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="ser.DATA_DB.C_Room">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAABgAAAAAAAAAA=</HashCode>
+      <FileName>DATA_DB\C_Room.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ser.DATA_DB.C_User_In_Room">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQgAAAAQAAgAKAAAAAAAAg=</HashCode>
+      <FileName>DATA_DB\C_User_In_Room.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ser.DATA_DB.dbb">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgEAAAQAAAgAAAAAAAAAg=</HashCode>
+      <FileName>DATA_DB\dbb.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ser.DATA_DB.message_on_room">
+    <Position X="2" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAASAAAAAAAAggAAAAAAAAAA=</HashCode>
+      <FileName>DATA_DB\message_on_room.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ser.DATA_DB.UserNotType">
+    <Position X="5" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAACAAAAAAAAAAAAEAAAAAAAAAAAAAACgAAAAAAAAAA=</HashCode>
+      <FileName>DATA_DB\UserNotType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
   <Class Name="ser.XmlParser.StructDocMess">
-    <Position X="9.25" Y="8.5" Width="1.5" />
+    <Position X="2" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAgAAAAADAAAABAAAAAIAAAhAAAAQAQAAA=</HashCode>
       <FileName>XmlParser\StructDocMess.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ser.XmlParser.XmlParser">
-    <Position X="11" Y="4.25" Width="1.5" />
+    <Position X="6.5" Y="6.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAABAAAAAAAAAAAAAIgAAAAAAAAAAQAAAAAAAQAAAA=</HashCode>
+      <HashCode>AAAABAAAAACEAAAAAAIgAAAAAAABAAQAAAAAAAQAAAA=</HashCode>
       <FileName>XmlParser\XmlParser.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ser.ClientObject">
-    <Position X="12.75" Y="2.25" Width="1.5" />
+    <Position X="5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>ACACAAAAAAAAAAgAAgBAAAACAAAIAAAAAAAABAGAAAI=</HashCode>
       <FileName>ClientObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ser.MainListUser">
-    <Position X="7.5" Y="7.25" Width="1.5" />
+    <Position X="8" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAABAAAAAAAAAAAA=</HashCode>
       <FileName>MainListUser.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ser.MyUDPSystem">
-    <Position X="9.25" Y="5" Width="1.5" />
+    <Position X="3.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAgAIICAAAAAAQgAAAEAABAAAAAAAAAAABAEAAAA=</HashCode>
+      <HashCode>AAAAAgAIICAAAAAAAgAEAEAABAAAAAAAAAAABAEAAAA=</HashCode>
       <FileName>MyUDPSystem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ser.Program">
-    <Position X="11" Y="8.25" Width="1.5" />
+    <Position X="6.5" Y="3" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABAAAAAEAAAAAAAAAAAAIACQAAAABAAAAgACJAAAAAI=</HashCode>
+      <HashCode>ABAIAAAEAAAAAAAAAAAAIACQAAAABAAAAgACJAAAAAI=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="ser.query">
-    <Position X="14.5" Y="5.5" Width="1.5" />
+    <Position X="8" Y="1.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>QBAAgAAAEgAAAAAAAAAAAACAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>QBAAAAAAEgAAAAAAAAAAAACAAAAABAAAAAAAAAAAAAA=</HashCode>
       <FileName>query.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="ser.ServerObject">
-    <Position X="7.5" Y="4.75" Width="1.5" />
+  <Class Name="ser.Report">
+    <Position X="3.5" Y="8" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAAAAAAAAAAEAAAAAAAAAgAAAAAAAAAAAAEAIBAAA=</HashCode>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Report.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ser.ServerObject">
+    <Position X="8" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAEAAFAAAAAAAAAAAAAAAAAAAAAAEAABAAA=</HashCode>
       <FileName>ServerObject.cs</FileName>
     </TypeIdentifier>
   </Class>
