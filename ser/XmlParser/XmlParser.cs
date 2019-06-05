@@ -111,7 +111,7 @@ namespace ser.XmlParser
                     if (messallInRoom1.Count > 0)
                     {
 
-                        var messallInRoom = messallInRoom1.First();
+                        var messallInRoom = messallInRoom1.Last();
                         XElement elementRoomMess = new XElement("Mess_in_room");
 
                         XElement elementOneMess = new XElement("Mess");
@@ -173,7 +173,7 @@ namespace ser.XmlParser
                         var messallInRoom = dbb.message_on_room
                             .Where(t => t.C_User_In_Room.C_Room.TableId == uir.C_Room.TableId).ToList();
                         XElement elementRoomMess = new XElement("Mess_in_room");
-                        foreach (var messageLoop in messallInRoom)
+                        foreach (var messageLoop in messallInRoom.Skip(messallInRoom.Count - 20))
                         {
                             XElement elementOneMess = new XElement("Mess");
 
