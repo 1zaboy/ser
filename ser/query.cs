@@ -265,6 +265,8 @@ namespace ser
                 var all_user = _db.C_User_In_Room.Where(t => t.C_Room.TableId == room.TableId && t.UserNotType.Id != user.Id).ToList();
                 foreach (var VARIABLE in all_user)
                 {
+                    Console.WriteLine("{0}:{1}:{2}:{3}",VARIABLE.TableId,VARIABLE.C_Room.NameRoom, VARIABLE.UserNotType.Id,VARIABLE.Participant);
+                    
                     int r = VARIABLE.UserNotType.index_in_list ?? default(int);
                     if (r != default(int))
                     {
