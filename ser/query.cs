@@ -20,6 +20,7 @@ namespace ser
             _clientObject = clientObject;
             Dictionary.Add("1", new Func<StructDocMess, bool>(case1));
             Dictionary.Add("2", new Func<StructDocMess, bool>(case2));
+            Dictionary.Add("3", new Func<StructDocMess, bool>(case3));
             Dictionary.Add("10", new Func<StructDocMess, bool>(case10));
             Dictionary.Add("13", new Func<StructDocMess, bool>(case13));
             Dictionary.Add("14", new Func<StructDocMess, bool>(case14));
@@ -69,7 +70,27 @@ namespace ser
                 Console.WriteLine(e);
                 throw;
             }
+        }
 
+        public bool case3(StructDocMess mess)
+        {
+            try
+            {
+                dbb _db = new dbb();
+                var r = _db.UserNotType.Where(t=>t.Id.ToString() == mess.index_user).ToList();
+                if (r.Any())
+                {
+                    r.First().index_in_list = null;
+                    _db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
         public bool case2(StructDocMess mess)//reg false if there is user treu if reg
         {
@@ -265,8 +286,6 @@ namespace ser
                 var all_user = _db.C_User_In_Room.Where(t => t.C_Room.TableId == room.TableId && t.UserNotType.Id != user.Id).ToList();
                 foreach (var VARIABLE in all_user)
                 {
-                    Console.WriteLine("{0}:{1}:{2}:{3}",VARIABLE.TableId,VARIABLE.C_Room.NameRoom, VARIABLE.UserNotType.Id,VARIABLE.Participant);
-                    
                     int r = VARIABLE.UserNotType.index_in_list ?? default(int);
                     if (r != default(int))
                     {
