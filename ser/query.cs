@@ -31,6 +31,7 @@ namespace ser
             Dictionary.Add("25", new Func<StructDocMess, bool>(case25));
             Dictionary.Add("80", new Func<StructDocMess, bool>(case80));
             Dictionary.Add("85", new Func<StructDocMess, bool>(case85));
+            Dictionary.Add("86", new Func<StructDocMess, bool>(case86));
             Dictionary.Add("90", new Func<StructDocMess, bool>(case90));
         }
 
@@ -51,7 +52,7 @@ namespace ser
                     //_db.SaveChanges();
                     Console.WriteLine("count line: " + coutline);
                     Console.WriteLine("case 1: " + d.Last().Key);
-                    
+
 
                     mess.index_user = r.First().Id.ToString();
                     mess.text_message = "True";
@@ -77,7 +78,7 @@ namespace ser
             try
             {
                 dbb _db = new dbb();
-                var r = _db.UserNotType.Where(t=>t.Id.ToString() == mess.index_user).ToList();
+                var r = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList();
                 if (r.Any())
                 {
                     r.First().index_in_list = null;
@@ -428,6 +429,32 @@ namespace ser
                         ServerObject.DictionaryClients[v4].ClientObject
                             .SendMess(XmlParser.XmlParser.struct_to_string(mess));
                     }
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public bool case86(StructDocMess mess)
+        {
+            try
+            {
+                dbb _db = new dbb();
+                List<C_User_In_Room> LUser = _db.C_User_In_Room
+                    .Where(t => t.C_Room.TableId == mess.index_room && t.UserNotType.Id.ToString() != mess.index_user)
+                    .ToList();
+                int index = -1;
+                foreach (var VARIABLE in LUser)
+                {
+                    if (VARIABLE.UserNotType.index_in_list.HasValue)
+                        index = VARIABLE.UserNotType.index_in_list.Value;
+                    if (ServerObject.DictionaryClients.ContainsKey(index))
+                        ServerObject.DictionaryClients[index].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                 }
 
                 return true;
