@@ -52,7 +52,7 @@ namespace ser
                     string[] arrayStr = str.Split(':');
                     if (arrayStr.Length > 1)
                     {
-                        Console.WriteLine("{0}:{1}", arrayStr[0], arrayStr[1]);
+                        //Console.WriteLine("{0}:{1}", arrayStr[0], arrayStr[1]);
                         int f = 0;
                         if (arrayStr[0] == "1" && Int32.TryParse(arrayStr[1], out f))
                         {
