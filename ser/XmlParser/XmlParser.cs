@@ -314,25 +314,34 @@ namespace ser.XmlParser
                 elementRoom.Add(iphoneCompanyElem);
 
                 int i = userAllRooms[0].C_Room.TableId;
-                var messallInRoom = dbb.message_on_room.Where(t => t.C_User_In_Room.C_Room.TableId == i).ToList();
-                XElement elementRoomMess = new XElement("Mess_in_room");
-                foreach (var messageLoop in messallInRoom)
+                var messallInRoom1 = dbb.message_on_room.Where(t => t.C_User_In_Room.C_Room.TableId == i).ToList();
+                
+                if (messallInRoom1.Count > 0)
                 {
-                    iphoneCompanyElem = new XElement("mess_str", messageLoop.text_mess);
-                    elementRoomMess.Add(iphoneCompanyElem);
-                    iphoneCompanyElem = new XElement("mess_time", messageLoop.time_mess.Value.ToString("yyyy.MM.dd-HH.mm.ss"));
-                    elementRoomMess.Add(iphoneCompanyElem);
+
+                    var messallInRoom = messallInRoom1.Last();
+                    XElement elementRoomMess = new XElement("Mess_in_room");
+
+                    XElement elementOneMess = new XElement("Mess");
+
+                    iphoneCompanyElem = new XElement("mess_str", messallInRoom.text_mess);
+                    elementOneMess.Add(iphoneCompanyElem);
+                    iphoneCompanyElem = new XElement("mess_time",
+                        messallInRoom.time_mess.Value.ToString("yyyy.MM.dd-HH.mm.ss"));
+                    elementOneMess.Add(iphoneCompanyElem);
 
                     XElement elementMessUser = new XElement("User_in_mess");
-                    iphoneCompanyElem = new XElement("index_user", messageLoop.C_User_In_Room.UserNotType.Id);
+                    iphoneCompanyElem = new XElement("index_user", messallInRoom.C_User_In_Room.UserNotType.Id);
                     elementMessUser.Add(iphoneCompanyElem);
-                    iphoneCompanyElem = new XElement("name_user", messageLoop.C_User_In_Room.UserNotType.NameUser);
+                    iphoneCompanyElem =
+                        new XElement("name_user", messallInRoom.C_User_In_Room.UserNotType.NameUser);
                     elementMessUser.Add(iphoneCompanyElem);
                     iphoneCompanyElem = new XElement("img_user", "");
                     elementMessUser.Add(iphoneCompanyElem);
-                    elementRoomMess.Add(elementMessUser);
+                    elementOneMess.Add(elementMessUser);
+                    elementRoomMess.Add(elementOneMess);
+                    elementRoom.Add(elementRoomMess);
                 }
-                elementRoom.Add(elementRoomMess);
                 elementRoom.Add(new XElement("count_user", userAllRooms.Count));
 
                 element.Add(elementRoom);
