@@ -18,6 +18,7 @@ namespace ser
         public query(ClientObject clientObject)
         {
             _clientObject = clientObject;
+            Dictionary.Add("0", new Func<StructDocMess, bool>(case0));
             Dictionary.Add("1", new Func<StructDocMess, bool>(case1));
             Dictionary.Add("2", new Func<StructDocMess, bool>(case2));
             Dictionary.Add("3", new Func<StructDocMess, bool>(case3));
@@ -35,6 +36,19 @@ namespace ser
             Dictionary.Add("90", new Func<StructDocMess, bool>(case90));
         }
 
+        public bool case0(StructDocMess mess)
+        {
+            try
+            {
+                _clientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
         public bool case1(StructDocMess mess)//log
         {
             try
