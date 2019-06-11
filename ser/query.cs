@@ -26,6 +26,7 @@ namespace ser
             Dictionary.Add("13", new Func<StructDocMess, bool>(case13));
             Dictionary.Add("14", new Func<StructDocMess, bool>(case14));
             Dictionary.Add("15", new Func<StructDocMess, bool>(case15));
+            Dictionary.Add("16", new Func<StructDocMess, bool>(case16));
             Dictionary.Add("20", new Func<StructDocMess, bool>(case20));
             Dictionary.Add("21", new Func<StructDocMess, bool>(case21));
             Dictionary.Add("22", new Func<StructDocMess, bool>(case22));
@@ -236,6 +237,38 @@ namespace ser
             }
         }
 
+        public bool case16(StructDocMess mess)
+        {
+            try
+            {
+                dbb _db = new dbb();
+                var main_q = _db.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.UserNotType.NameUser == mess.text_message).ToList();
+                if (main_q.Any())
+                {
+                    main_q.First().Participant = false;
+                    _db.SaveChanges();
+                }
+
+                var all_user_in_room = _db.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList();
+                foreach (var cUserInRoom in all_user_in_room)
+                {
+                    int r = cUserInRoom.UserNotType.index_in_list ?? -1;
+                    if (r != -1)
+                    {
+                        if (ServerObject.DictionaryClients.ContainsKey(r))
+                            ServerObject.DictionaryClients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                    }
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
         public bool case20(StructDocMess mess)//send invait
         {
             try
@@ -301,8 +334,8 @@ namespace ser
                 var all_user = _db.C_User_In_Room.Where(t => t.C_Room.TableId == room.TableId && t.UserNotType.Id != user.Id).ToList();
                 foreach (var VARIABLE in all_user)
                 {
-                    int r = VARIABLE.UserNotType.index_in_list ?? default(int);
-                    if (r != default(int))
+                    int r = VARIABLE.UserNotType.index_in_list ?? -1;
+                    if (r != -1)
                     {
                         //ServerObject.clients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                         if (ServerObject.DictionaryClients.ContainsKey(r))

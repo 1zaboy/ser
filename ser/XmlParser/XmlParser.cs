@@ -387,6 +387,19 @@ namespace ser.XmlParser
                     elementUsers.Add(iphoneCompanyElem);
                     iphoneCompanyElem = new XElement("img_user", "");
                     elementUsers.Add(iphoneCompanyElem);
+
+                    int v2 = -1;
+                    if (us.UserNotType.index_in_list.HasValue)
+                        v2 = us.UserNotType.index_in_list.Value;
+                    if (v2 != -1)
+                    {
+                        iphoneCompanyElem = new XElement("in_net", "True");
+                    }
+                    else
+                    {
+                        iphoneCompanyElem = new XElement("in_net", "Flase");
+                    }
+                    elementUsers.Add(iphoneCompanyElem);
                     elementAllUsers.Add(elementUsers);
                 }
                 elementRoom.Add(elementAllUsers);
