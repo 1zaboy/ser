@@ -275,12 +275,13 @@ namespace ser
             {
                 dbb _db = new dbb();
                 var main_user = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList().First();
-                var user = _db.UserNotType.Where(t => t.NameUser == mess.text_message).ToList();
-                if (user.Any())
+                var user1 = _db.C_User_In_Room.Where(t => t.UserNotType.NameUser == mess.text_message && t.C_Room.TableId != mess.index_room).ToList();
+                if (user1.Any())
                 {
-                    int r = user.First().index_in_list + 1 ?? default(int);
+                    var user = user1.First().UserNotType;
+                    int r = user.index_in_list + 1 ?? default(int);
                     Console.WriteLine("invite index: {0}", r);
-                    if (r != default(int) && main_user.Id != user.First().Id)
+                    if (r != default(int) && main_user.Id != user.Id)
                     {
                         //ServerObject.clients[r - 1].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                         if (ServerObject.DictionaryClients.ContainsKey(r - 1))
