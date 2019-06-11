@@ -37,6 +37,7 @@ namespace ser
                     Console.WriteLine("2\tЗапуск UDP");
                     Console.WriteLine("3\tОтображения в консоль пользователей");
                     Console.WriteLine("4\tСоздание отчётов о отправленных сообщениях");
+                    Console.WriteLine("4\tСоздание отчётов о огруппах");
                     string com = Console.ReadLine();
                     if (Dictionary.ContainsKey(com))
                         Dictionary[com].DynamicInvoke();
@@ -54,6 +55,7 @@ namespace ser
             Dictionary.Add("2", new Action(case2));
             Dictionary.Add("3", new Action(case3));
             Dictionary.Add("4", new Action(case4));
+            Dictionary.Add("5", new Action(case5));
         }
 
         static private void case1()
@@ -113,6 +115,20 @@ namespace ser
                 Console.WriteLine("Отчёт создан, он находится по адресу: {0}", str);
                 //r.sss();
                 
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+
+        static private void case5()
+        {
+            try
+            {
+                Report r = new Report();
+                var str = r.ViewGroup();
+                Console.WriteLine("Отчёт создан, он находится по адресу: {0}", str);
             }
             catch (Exception e)
             {
