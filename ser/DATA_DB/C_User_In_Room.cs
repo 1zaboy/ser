@@ -26,6 +26,8 @@ namespace ser.DATA_DB
 
         public bool Participant { get; set; }
 
+        public bool Admin { get; set; }
+
         public virtual UserNotType UserNotType { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
