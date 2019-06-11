@@ -95,7 +95,7 @@ namespace ser.XmlParser
                 XElement element = new XElement("Message");
                 XElement iphoneCompanyElem = new XElement("index_command", mess.index_command);
                 element.Add(iphoneCompanyElem);
-
+                Console.WriteLine(mess.index_user);
 
                 var userAllRooms = dbb.C_User_In_Room.Where(t => t.UserNotType.Id.ToString() == mess.index_user).ToList();
 
@@ -108,7 +108,7 @@ namespace ser.XmlParser
                     elementRoom.Add(iphoneCompanyElem);
 
                     var messallInRoom1 = dbb.message_on_room.Where(t => t.C_User_In_Room.C_Room.TableId == uir.C_Room.TableId).ToList();
-                    if (messallInRoom1.Count > 0)
+                    if (messallInRoom1.Any())
                     {
 
                         var messallInRoom = messallInRoom1.Last();
