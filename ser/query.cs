@@ -22,6 +22,7 @@ namespace ser
             Dictionary.Add("1", new Func<StructDocMess, bool>(case1));
             Dictionary.Add("2", new Func<StructDocMess, bool>(case2));
             Dictionary.Add("3", new Func<StructDocMess, bool>(case3));
+            Dictionary.Add("5", new Func<StructDocMess, bool>(case5));
             Dictionary.Add("10", new Func<StructDocMess, bool>(case10));
             Dictionary.Add("13", new Func<StructDocMess, bool>(case13));
             Dictionary.Add("14", new Func<StructDocMess, bool>(case14));
@@ -59,15 +60,11 @@ namespace ser
                 var d = ServerObject.DictionaryClients.Where(t => t.Value.ClientObject == _clientObject).ToList();
                 if (r.Any() && d.Any())
                 {
-                    int coutline = _db.Database.ExecuteSqlCommand("update UserNotType set index_in_list =" + d.Last().Key + " where Id = " +
-                                             r.First().Id);
-                    //var r1 = r.First();
-                    ////r.First().index_in_list = ser.ServerObject.clients.FindIndex(t => t.ClientObject == _clientObject);
-                    //r1.index_in_list = d.Last().Key;
-                    //_db.SaveChanges();
+                    int coutline = _db.Database.ExecuteSqlCommand("update UserNotType set index_in_list =" +
+                                                                  d.Last().Key + " where Id = " +
+                                                                  r.First().Id);
                     Console.WriteLine("count line: " + coutline);
                     Console.WriteLine("case 1: " + d.Last().Key);
-
 
                     mess.index_user = r.First().Id.ToString();
                     mess.text_message = "True";
@@ -88,26 +85,7 @@ namespace ser
             }
         }
 
-        public bool case3(StructDocMess mess)
-        {
-            try
-            {
-                dbb _db = new dbb();
-                var r = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList();
-                if (r.Any())
-                {
-                    r.First().index_in_list = null;
-                    _db.SaveChanges();
-                    return true;
-                }
-                return false;
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
-        }
+        
         public bool case2(StructDocMess mess)//reg false if there is user treu if reg
         {
             try
@@ -142,6 +120,41 @@ namespace ser
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
+                throw;
+            }
+        }
+        public bool case3(StructDocMess mess)
+        {
+            try
+            {
+                dbb _db = new dbb();
+                var r = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList();
+                if (r.Any())
+                {
+                    r.First().index_in_list = null;
+                    _db.SaveChanges();
+                    return true;
+                }
+                return false;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public bool case5(StructDocMess mess)
+        {
+            try
+            {
+                var xml_str = XmlParser.XmlParser.struct_search_user_to_string(mess, 10);
+                _clientObject.SendMess(xml_str);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
                 throw;
             }
         }

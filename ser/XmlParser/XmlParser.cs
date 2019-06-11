@@ -197,20 +197,6 @@ namespace ser.XmlParser
 
                         elementRoom.Add(elementRoomMess);
                         element.Add(elementRoom);
-
-                        //XElement elementAllUsers = new XElement("Users");
-                        //foreach (var us in userAllRooms)
-                        //{
-                        //    XElement elementUsers = new XElement("User");
-                        //    iphoneCompanyElem = new XElement("index_user", us.UserNotType.Id);
-                        //    elementUsers.Add(iphoneCompanyElem);
-                        //    iphoneCompanyElem = new XElement("name_user", us.UserNotType.NameUser);
-                        //    elementUsers.Add(iphoneCompanyElem);
-                        //    iphoneCompanyElem = new XElement("img_user", "");
-                        //    elementUsers.Add(iphoneCompanyElem);
-                        //    elementAllUsers.Add(elementUsers);
-                        //}
-                        //element.Add(elementAllUsers);
                     }
                 }
                 XD.Add(element);
@@ -316,7 +302,7 @@ namespace ser.XmlParser
                 int i = userAllRooms[0].C_Room.TableId;
                 var messallInRoom1 = dbb.message_on_room.Where(t => t.C_User_In_Room.C_Room.TableId == i).ToList();
                 
-                if (messallInRoom1.Count > 0)
+                if (messallInRoom1.Any())
                 {
 
                     var messallInRoom = messallInRoom1.Last();
@@ -369,13 +355,15 @@ namespace ser.XmlParser
 
 
                 var userAllRooms = dbb.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room).ToList();
+                var Im = userAllRooms.Find(t => t.UserNotType.Id.ToString() == mess.index_user);
+                userAllRooms.Remove(Im);
+                userAllRooms.Insert(0, Im);
 
                 XElement elementRoom = new XElement("Room");
                 iphoneCompanyElem = new XElement("index_room", userAllRooms[0].C_Room.TableId);
                 elementRoom.Add(iphoneCompanyElem);
                 iphoneCompanyElem = new XElement("name_room", userAllRooms[0].C_Room.NameRoom);
                 elementRoom.Add(iphoneCompanyElem);
-                
 
                 XElement elementAllUsers = new XElement("Users");
                 foreach (var us in userAllRooms)
@@ -414,6 +402,52 @@ namespace ser.XmlParser
                 throw;
             }
 
+        }
+
+        public static string struct_search_user_to_string(StructDocMess mess, int take)
+        {
+            dbb dbb = new dbb();
+            try
+            {
+                var XD = new XDocument();
+                XElement element = new XElement("Message");
+                XElement iphoneCompanyElem = new XElement("index_command", mess.index_command);
+                element.Add(iphoneCompanyElem);
+
+                List<UserNotType> LUsers = new List<UserNotType>();
+                try
+                {
+                    LUsers = dbb.UserNotType.Where(t => t.NameUser.Contains(mess.text_message)).OrderBy(t=>t.NameUser).Take(take).ToList();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+
+                if (LUsers.Any())
+                {
+                    XElement elementAllUsers = new XElement("Users");
+                    foreach (var us in LUsers)
+                    {
+                        XElement elementUsers = new XElement("User");
+                        iphoneCompanyElem = new XElement("index_user", us.Id);
+                        elementUsers.Add(iphoneCompanyElem);
+                        iphoneCompanyElem = new XElement("name_user", us.NameUser);
+                        elementUsers.Add(iphoneCompanyElem);
+                        iphoneCompanyElem = new XElement("img_user", "");
+                        elementUsers.Add(iphoneCompanyElem);
+                        elementAllUsers.Add(elementUsers);
+                    }
+                    element.Add(elementAllUsers);
+                }
+                XD.Add(element);
+                return XD.ToString();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }
