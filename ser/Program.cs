@@ -38,6 +38,7 @@ namespace ser
                     Console.WriteLine("3\tОтображения в консоль пользователей");
                     Console.WriteLine("4\tСоздание отчётов о отправленных сообщениях");
                     Console.WriteLine("5\tСоздание отчётов о группах");
+                    Console.WriteLine("6\tСоздание отчётов о пользователях");
                     string com = Console.ReadLine();
                     if (Dictionary.ContainsKey(com))
                     {
@@ -62,6 +63,7 @@ namespace ser
             Dictionary.Add("3", new Action(case3));
             Dictionary.Add("4", new Action(case4));
             Dictionary.Add("5", new Action(case5));
+            Dictionary.Add("6", new Action(case6));
         }
 
         static private void case1()
@@ -134,6 +136,19 @@ namespace ser
             {
                 Report r = new Report();
                 var str = r.ViewGroup();
+                Console.WriteLine("Отчёт создан, он находится по адресу: {0}", str);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        }
+        static private void case6()
+        {
+            try
+            {
+                Report r = new Report();
+                var str = r.ViewUsers();
                 Console.WriteLine("Отчёт создан, он находится по адресу: {0}", str);
             }
             catch (Exception e)

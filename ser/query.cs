@@ -406,6 +406,10 @@ namespace ser
                         }
                     }
                 }
+                else
+                {
+                    Console.WriteLine("Error");
+                }
 
 
 
