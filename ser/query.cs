@@ -339,7 +339,7 @@ namespace ser
                 var user = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList().First();
 
                 StructDocMess fDocMess = new StructDocMess();
-                if (mess.text_message.Take(4).ToString() == "True")
+                if (mess.text_message.Substring(0,4) == "True")
                 {
                     var user_in_room = new C_User_In_Room();
                     user_in_room.C_Room = room;
@@ -381,7 +381,7 @@ namespace ser
                         }
                     }
                 }
-                else if (mess.text_message.Take(5).ToString() == "False")
+                else if (mess.text_message.Substring(0,5) == "False")
                 {
                     fDocMess.index_command = "25";
                     fDocMess.index_user = "-1";
