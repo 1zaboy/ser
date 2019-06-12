@@ -134,7 +134,7 @@ namespace ser.XmlParser
                         elementRoomMess.Add(elementOneMess);
                         elementRoom.Add(elementRoomMess);
                     }
-                    var allUserInRooms = dbb.C_User_In_Room.Where(t => t.C_Room.TableId == uir.C_Room.TableId).ToList();
+                    var allUserInRooms = dbb.C_User_In_Room.Where(t => t.C_Room.TableId == uir.C_Room.TableId && t.Participant).ToList();
                     XElement elementAllUsers = new XElement("count_user", allUserInRooms.Count)
 ;
                     elementRoom.Add(elementAllUsers);
