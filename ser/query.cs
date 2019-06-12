@@ -176,6 +176,8 @@ namespace ser
                     var userInRoom = new C_User_In_Room();
                     userInRoom.UserNotType = user;
                     userInRoom.C_Room = room;
+                    userInRoom.Admin = true;
+                    userInRoom.Participant = true;
                     _db.C_User_In_Room.Add(userInRoom);
                     _db.SaveChanges();
 
@@ -339,15 +341,23 @@ namespace ser
                 var user = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList().First();
 
                 StructDocMess fDocMess = new StructDocMess();
-                if (mess.text_message.Substring(0,4) == "True")
+                if (mess.text_message.Substring(0, 4) == "True")
                 {
-                    var user_in_room = new C_User_In_Room();
-                    user_in_room.C_Room = room;
-                    user_in_room.UserNotType = user;
-                    user_in_room.Participant = true;
-                    user_in_room.Admin = false;
-                    _db.C_User_In_Room.Add(user_in_room);
-                    _db.SaveChanges();
+                    var user_was_in_room = _db.C_User_In_Room.Where(t => t.UserNotType.Id.ToString() == mess.index_user && t.C_Room.TableId == mess.index_room).ToList();
+                    if (!user_was_in_room.Any())
+                    {
+                        var user_in_room = new C_User_In_Room();
+                        user_in_room.C_Room = room;
+                        user_in_room.UserNotType = user;
+                        user_in_room.Participant = true;
+                        user_in_room.Admin = false;
+                        _db.C_User_In_Room.Add(user_in_room);
+                        _db.SaveChanges();
+                    }
+                    else
+                    {
+                        user_was_in_room.First().Participant = true;
+                    }
 
                     var s = _db.C_User_In_Room.Where(t => t.UserNotType.NameUser == user.NameUser).ToList().First();
                     var Mess_in_room = new message_on_room();
@@ -363,7 +373,7 @@ namespace ser
                     fDocMess.name_room = mess.name_room;
                     fDocMess.text_message = mess.text_message.Substring(5, mess.text_message.Length - 5) + mess.name_user;
                     fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
-                    
+
                     var all_user = _db.C_User_In_Room
                         .Where(t => t.C_Room.TableId == room.TableId && t.UserNotType.Id != user.Id).ToList();
                     foreach (var VARIABLE in all_user)
@@ -381,7 +391,7 @@ namespace ser
                         }
                     }
                 }
-                else if (mess.text_message.Substring(0,5) == "False")
+                else if (mess.text_message.Substring(0, 5) == "False")
                 {
                     fDocMess.index_command = "25";
                     fDocMess.index_user = "-1";
@@ -588,10 +598,24 @@ namespace ser
             try
             {
                 dbb _db = new dbb();
-                C_User_In_Room userInRoom = _db.C_User_In_Room
-                    .Where(t => t.UserNotType.Id.ToString() == mess.index_user && t.C_Room.TableId == mess.index_room).ToList().First();
-                userInRoom.Participant = false;
-                _db.SaveChanges();
+                List<C_User_In_Room> userInRoom = _db.C_User_In_Room
+                    .Where(t => t.UserNotType.Id.ToString() == mess.index_user && t.C_Room.TableId == mess.index_room).ToList();
+                if (userInRoom.Any())
+                {
+                    var _user = userInRoom.First();
+                    _user.Participant = false;
+                    _user.Admin = false;
+                    _db.SaveChanges();
+                    
+                    if (_user.Admin)
+                    {
+                        var r5 = _db.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList();
+                        if (r5.Any())
+                            r5[0].Admin = false;
+                        _db.SaveChanges();
+                    }
+                }
+
                 return true;
             }
             catch (Exception e)
