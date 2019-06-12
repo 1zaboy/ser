@@ -361,7 +361,7 @@ namespace ser
                     fDocMess.name_user = "Server";
                     fDocMess.index_room = mess.index_room;
                     fDocMess.name_room = mess.name_room;
-                    fDocMess.text_message = mess.text_message.Skip(5).ToString();
+                    fDocMess.text_message = mess.text_message.Substring(5, mess.text_message.Length - 5);
                     fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
                     
                     var all_user = _db.C_User_In_Room
@@ -388,7 +388,7 @@ namespace ser
                     fDocMess.name_user = "Server";
                     fDocMess.index_room = mess.index_room;
                     fDocMess.name_room = mess.name_room;
-                    fDocMess.text_message = mess.text_message.Skip(6).ToString();
+                    fDocMess.text_message = mess.text_message.Substring(6, mess.text_message.Length - 6);
                     fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
 
                     var all_user = _db.C_User_In_Room
