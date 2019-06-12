@@ -37,10 +37,16 @@ namespace ser
                     Console.WriteLine("2\tЗапуск UDP");
                     Console.WriteLine("3\tОтображения в консоль пользователей");
                     Console.WriteLine("4\tСоздание отчётов о отправленных сообщениях");
-                    Console.WriteLine("4\tСоздание отчётов о огруппах");
+                    Console.WriteLine("5\tСоздание отчётов о группах");
                     string com = Console.ReadLine();
                     if (Dictionary.ContainsKey(com))
+                    {
                         Dictionary[com].DynamicInvoke();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Нет такого варианта");
+                    }
                 }
             }
             catch (Exception ex)

@@ -85,7 +85,7 @@ namespace ser
             }
         }
 
-        
+
         public bool case2(StructDocMess mess)//reg false if there is user treu if reg
         {
             try
@@ -338,24 +338,76 @@ namespace ser
                 var room = _db.C_Room.Where(t => t.TableId == mess.index_room).ToList().First();
                 var user = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList().First();
 
-                var user_in_room = new C_User_In_Room();
-                user_in_room.C_Room = room;
-                user_in_room.UserNotType = user;
-                user_in_room.Participant = true;
-                _db.C_User_In_Room.Add(user_in_room);
-                _db.SaveChanges();
-
-                var all_user = _db.C_User_In_Room.Where(t => t.C_Room.TableId == room.TableId && t.UserNotType.Id != user.Id).ToList();
-                foreach (var VARIABLE in all_user)
+                StructDocMess fDocMess = new StructDocMess();
+                if (mess.text_message.Take(4).ToString() == "True")
                 {
-                    int r = VARIABLE.UserNotType.index_in_list ?? -1;
-                    if (r != -1)
+                    var user_in_room = new C_User_In_Room();
+                    user_in_room.C_Room = room;
+                    user_in_room.UserNotType = user;
+                    user_in_room.Participant = true;
+                    user_in_room.Admin = false;
+                    _db.C_User_In_Room.Add(user_in_room);
+                    _db.SaveChanges();
+
+                    var s = _db.C_User_In_Room.Where(t => t.UserNotType.NameUser == user.NameUser).ToList().First();
+                    var Mess_in_room = new message_on_room();
+                    Mess_in_room.C_User_In_Room = s;
+                    Mess_in_room.text_mess = mess.text_message.Skip(5).ToString();
+                    Mess_in_room.time_mess = DateTime.Now;
+                    _db.message_on_room.Add(Mess_in_room);
+
+                    fDocMess.index_command = "25";
+                    fDocMess.index_user = "-1";
+                    fDocMess.name_user = "Server";
+                    fDocMess.index_room = mess.index_room;
+                    fDocMess.name_room = mess.name_room;
+                    fDocMess.text_message = mess.text_message.Skip(5).ToString();
+                    fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
+                    
+                    var all_user = _db.C_User_In_Room
+                        .Where(t => t.C_Room.TableId == room.TableId && t.UserNotType.Id != user.Id).ToList();
+                    foreach (var VARIABLE in all_user)
                     {
-                        //ServerObject.clients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
-                        if (ServerObject.DictionaryClients.ContainsKey(r))
-                            ServerObject.DictionaryClients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                        int r = VARIABLE.UserNotType.index_in_list ?? -1;
+                        if (r != -1)
+                        {
+                            if (ServerObject.DictionaryClients.ContainsKey(r))
+                            {
+                                ServerObject.DictionaryClients[r].ClientObject
+                                    .SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                                ServerObject.DictionaryClients[r].ClientObject
+                                    .SendMess(XmlParser.XmlParser.struct_to_string(fDocMess));
+                            }
+                        }
                     }
                 }
+                else if (mess.text_message.Take(5).ToString() == "False")
+                {
+                    fDocMess.index_command = "25";
+                    fDocMess.index_user = "-1";
+                    fDocMess.name_user = "Server";
+                    fDocMess.index_room = mess.index_room;
+                    fDocMess.name_room = mess.name_room;
+                    fDocMess.text_message = mess.text_message.Skip(6).ToString();
+                    fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
+
+                    var all_user = _db.C_User_In_Room
+                        .Where(t => t.C_Room.TableId == room.TableId && t.UserNotType.Id != user.Id).ToList();
+                    foreach (var VARIABLE in all_user)
+                    {
+                        int r = VARIABLE.UserNotType.index_in_list ?? -1;
+                        if (r != -1)
+                        {
+                            if (ServerObject.DictionaryClients.ContainsKey(r))
+                            {
+                                ServerObject.DictionaryClients[r].ClientObject
+                                    .SendMess(XmlParser.XmlParser.struct_to_string(fDocMess));
+                            }
+                        }
+                    }
+                }
+
+
 
                 return true;
             }
