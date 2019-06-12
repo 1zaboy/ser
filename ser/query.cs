@@ -264,6 +264,15 @@ namespace ser
                     _db.SaveChanges();
                 }
 
+                StructDocMess fDocMess = new StructDocMess();
+                fDocMess.index_command = "25";
+                fDocMess.index_user = "-1";
+                fDocMess.name_user = "Server";
+                fDocMess.index_room = mess.index_room;
+                fDocMess.name_room = mess.name_room;
+                fDocMess.text_message = "Удален пользователь: " + mess.name_user;
+                fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
+
                 var all_user_in_room = _db.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList();
                 foreach (var cUserInRoom in all_user_in_room)
                 {
@@ -271,7 +280,12 @@ namespace ser
                     if (r != -1)
                     {
                         if (ServerObject.DictionaryClients.ContainsKey(r))
-                            ServerObject.DictionaryClients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                        {
+                            ServerObject.DictionaryClients[r].ClientObject
+                                .SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                            ServerObject.DictionaryClients[r].ClientObject
+                                .SendMess(XmlParser.XmlParser.struct_to_string(fDocMess));
+                        }
                     }
                 }
 
