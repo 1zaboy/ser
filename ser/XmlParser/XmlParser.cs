@@ -284,9 +284,12 @@ namespace ser.XmlParser
 
 
                 var userAllRooms = dbb.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList();
-                var Im = userAllRooms.Find(t => t.UserNotType.Id.ToString() == mess.index_user);
-                userAllRooms.Remove(Im);
-                userAllRooms.Insert(0, Im);
+                if (userAllRooms.FindIndex(t => t.UserNotType.Id.ToString() == mess.index_user)!=-1)
+                {
+                    var Im = userAllRooms.Find(t => t.UserNotType.Id.ToString() == mess.index_user);
+                    userAllRooms.Remove(Im);
+                    userAllRooms.Insert(0, Im);
+                }
 
                 XElement elementRoom = new XElement("Room");
                 iphoneCompanyElem = new XElement("index_room", userAllRooms[0].C_Room.TableId);
