@@ -503,7 +503,7 @@ namespace ser
             {
                 dbb _db = new dbb();
                 var usersInRoom = _db.C_User_In_Room
-                    .Where(t => t.C_Room.TableId == mess.index_room && t.UserNotType.Id.ToString() != mess.index_user).ToList();
+                    .Where(t => t.C_Room.TableId == mess.index_room && t.UserNotType.Id.ToString() != mess.index_user && t.UserNotType.NameUser != mess.name_user && t.Participant).ToList();
                 foreach (var VARIABLE in usersInRoom)
                 {
                     int v2 = 0;
