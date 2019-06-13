@@ -106,7 +106,7 @@ namespace ser
                     mess.index_user = r.First().Id.ToString();
                     mess.text_message = "True";
                     string fd = XmlParser.XmlParser.struct_to_string(mess);
-                    Console.WriteLine(fd);
+                    //Console.WriteLine(fd);
                     _clientObject.SendMess(fd);
                     return true;
                 }
@@ -309,7 +309,7 @@ namespace ser
                 {
                     var user = user1.First().UserNotType;
                     int r = user.index_in_list + 1 ?? default(int);
-                    Console.WriteLine("invite index: {0}", r);
+                    //Console.WriteLine("invite index: {0}", r);
                     if (r != default(int) && main_user.Id != user.Id)
                     {
                         //ServerObject.clients[r - 1].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
@@ -432,7 +432,7 @@ namespace ser
                 }
                 else
                 {
-                    Console.WriteLine("Error");
+                    Console.WriteLine("case 21: Error");
                 }
 
 
