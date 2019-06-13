@@ -148,7 +148,7 @@ namespace ser
         {
             try
             {
-                var xml_str = XmlParser.XmlParser.struct_search_user_to_string(mess, 10);
+                var xml_str = XmlParser.XmlParser.struct_search_user_to_string(mess, 7);
                 _clientObject.SendMess(xml_str);
                 return true;
             }
@@ -465,27 +465,36 @@ namespace ser
             try
             {
                 dbb _db = new dbb();
-                var Room = _db.C_Room.Where(t => t.TableId == mess.index_room).ToList().First();
-                var User = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList().First();
-                message_on_room messageOnRoom = new message_on_room();
-                messageOnRoom.C_User_In_Room = _db.C_User_In_Room
-                    .Where(t => t.C_Room.TableId == mess.index_room && t.UserNotType.Id.ToString() == mess.index_user)
-                    .ToList().First();
-                messageOnRoom.text_mess = mess.text_message;
-                messageOnRoom.time_mess = DateTime.ParseExact(mess.time_message, "yyyy.MM.dd-HH.mm.ss", System.Globalization.CultureInfo.InvariantCulture);
-                _db.message_on_room.Add(messageOnRoom);
-                _db.SaveChanges();
-                var usersInRoom = _db.C_User_In_Room
-                    .Where(t => t.C_Room.TableId == mess.index_room).ToList();
-                foreach (var VARIABLE in usersInRoom)
+                var User = _db.C_User_In_Room.Where(t => t.UserNotType.Id.ToString() == mess.index_user && t.C_Room.TableId == mess.index_room && t.Participant).ToList();
+                if (User.Any())
                 {
-                    int v2 = -1;
-                    if (VARIABLE.UserNotType.index_in_list.HasValue)
-                        v2 = VARIABLE.UserNotType.index_in_list.Value;
-                    if (v2 != -1)
-                        if (ServerObject.DictionaryClients.ContainsKey(v2))
-                            ServerObject.DictionaryClients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
-                    //ServerObject.clients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                    message_on_room messageOnRoom = new message_on_room();
+                    messageOnRoom.C_User_In_Room = _db.C_User_In_Room
+                        .Where(t => t.C_Room.TableId == mess.index_room &&
+                                    t.UserNotType.Id.ToString() == mess.index_user)
+                        .ToList().First();
+                    messageOnRoom.text_mess = mess.text_message;
+                    messageOnRoom.time_mess = DateTime.ParseExact(mess.time_message, "yyyy.MM.dd-HH.mm.ss",
+                        System.Globalization.CultureInfo.InvariantCulture);
+                    _db.message_on_room.Add(messageOnRoom);
+                    _db.SaveChanges();
+                    var usersInRoom = _db.C_User_In_Room
+                        .Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList();
+                    foreach (var VARIABLE in usersInRoom)
+                    {
+                        int v2 = -1;
+                        if (VARIABLE.UserNotType.index_in_list.HasValue)
+                            v2 = VARIABLE.UserNotType.index_in_list.Value;
+                        if (v2 != -1)
+                            if (ServerObject.DictionaryClients.ContainsKey(v2))
+                                ServerObject.DictionaryClients[v2].ClientObject
+                                    .SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                    }
+                }
+                else
+                {
+                    mess.text_message = "9E0D14D2-6A42-43F0-BEA6-F75E780EB63B";
+                    _clientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                 }
 
                 return true;
