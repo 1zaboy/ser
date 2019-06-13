@@ -274,7 +274,7 @@ namespace ser
                         fDocMess.name_user = "Server";
                         fDocMess.index_room = mess.index_room;
                         fDocMess.name_room = mess.name_room;
-                        fDocMess.text_message = "Удален пользователь: " + mess.text_message;
+                        fDocMess.text_message = "Удален пользователь: " + main_q.First().UserNotType.NameUser;
                         fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
 
                         var all_user_in_room = _db.C_User_In_Room
