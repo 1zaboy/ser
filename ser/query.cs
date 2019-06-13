@@ -371,6 +371,7 @@ namespace ser
                     else
                     {
                         user_was_in_room.First().Participant = true;
+                        _db.SaveChanges();
                     }
 
                     var s = _db.C_User_In_Room.Where(t => t.UserNotType.NameUser == user.NameUser).ToList().First();
@@ -379,6 +380,7 @@ namespace ser
                     Mess_in_room.text_mess = mess.text_message.Skip(5).ToString();
                     Mess_in_room.time_mess = DateTime.Now;
                     _db.message_on_room.Add(Mess_in_room);
+                    _db.SaveChanges();
 
                     fDocMess.index_command = "25";
                     fDocMess.index_user = "-1";
@@ -572,6 +574,13 @@ namespace ser
                             ":" + ServerObject.DictionaryClients[v2].port_udp;
                         ServerObject.DictionaryClients[v4].ClientObject
                             .SendMess(XmlParser.XmlParser.struct_to_string(mess));
+
+                        message_on_room me = new message_on_room();
+                        me.Room_U = mess.index_room;
+                        me.text_mess = "Make call";
+                        me.text_mess = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
+                        _db.message_on_room.Add(me);
+                        _db.SaveChanges();
                     }
                 }
 
