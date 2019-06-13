@@ -63,8 +63,8 @@ namespace ser
                     int coutline = _db.Database.ExecuteSqlCommand("update UserNotType set index_in_list =" +
                                                                   d.Last().Key + " where Id = " +
                                                                   r.First().Id);
-                    Console.WriteLine("count line: " + coutline);
-                    Console.WriteLine("case 1: " + d.Last().Key);
+                    //Console.WriteLine("count line: " + coutline);
+                    //Console.WriteLine("case 1: " + d.Last().Key);
 
                     mess.index_user = r.First().Id.ToString();
                     mess.text_message = "True";
@@ -549,19 +549,13 @@ namespace ser
                     int v4 = 0;
                     if (usersInRoom[1].UserNotType.index_in_list.HasValue)
                         v4 = usersInRoom[1].UserNotType.index_in_list.Value;
-                    Console.WriteLine("v2-{0}:v4-{1}", v2, v4);
-
-                    Console.WriteLine("all key\n");
-                    foreach (var VARIABLE in ServerObject.DictionaryClients)
-                    {
-                        Console.WriteLine(VARIABLE.Value.port_udp);
-                    }
+                    //Console.WriteLine("v2-{0}:v4-{1}", v2, v4);
 
                     if (ServerObject.DictionaryClients.ContainsKey(v2) && ServerObject.DictionaryClients.ContainsKey(v4))
                     {
                         mess.index_user = usersInRoom[1].UserNotType.Id.ToString();
                         mess.name_user = usersInRoom[1].UserNotType.NameUser;
-                        Console.WriteLine("v4 port-{0}", ServerObject.DictionaryClients[v4].port_udp);
+                        //Console.WriteLine("v4 port-{0}", ServerObject.DictionaryClients[v4].port_udp);
                         mess.text_message =
                             ((IPEndPoint)(ServerObject.DictionaryClients[v4].ClientObject.client.Client.RemoteEndPoint)).Address
                             .ToString() +
@@ -570,7 +564,7 @@ namespace ser
 
                         mess.index_user = usersInRoom[0].UserNotType.Id.ToString();
                         mess.name_user = usersInRoom[0].UserNotType.NameUser;
-                        Console.WriteLine("v2 port-{0}", ServerObject.DictionaryClients[v2].port_udp);
+                        //Console.WriteLine("v2 port-{0}", ServerObject.DictionaryClients[v2].port_udp);
                         mess.text_message =
                             ((IPEndPoint)(ServerObject.DictionaryClients[v2].ClientObject.client.Client
                                 .RemoteEndPoint)).Address

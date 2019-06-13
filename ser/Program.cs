@@ -33,12 +33,13 @@ namespace ser
                 Init();
                 while (true)
                 {
-                    Console.WriteLine("1\tЗапуск TCP");
-                    Console.WriteLine("2\tЗапуск UDP");
-                    Console.WriteLine("3\tОтображения в консоль пользователей");
-                    Console.WriteLine("4\tСоздание отчётов о отправленных сообщениях");
-                    Console.WriteLine("5\tСоздание отчётов о группах");
-                    Console.WriteLine("6\tСоздание отчётов о пользователях");
+                    Console.WriteLine("1\tЗапуск");
+                    //Console.WriteLine("1\tЗапуск TCP");
+                    //Console.WriteLine("2\tЗапуск UDP");
+                    //Console.WriteLine("3\tОтображения в консоль пользователей");
+                    Console.WriteLine("2\tСоздание отчётов о отправленных сообщениях");
+                    Console.WriteLine("3\tСоздание отчётов о группах");
+                    Console.WriteLine("4\tСоздание отчётов о пользователях");
                     string com = Console.ReadLine();
                     if (Dictionary.ContainsKey(com))
                     {
@@ -58,14 +59,28 @@ namespace ser
 
         static public void Init()
         {
-            Dictionary.Add("1", new Action(case1));
-            Dictionary.Add("2", new Action(case2));
-            Dictionary.Add("3", new Action(case3));
-            Dictionary.Add("4", new Action(case4));
-            Dictionary.Add("5", new Action(case5));
-            Dictionary.Add("6", new Action(case6));
+            Dictionary.Add("1", new Action(case0));
+            //Dictionary.Add("1", new Action(case1));
+            //Dictionary.Add("2", new Action(case2));
+            Dictionary.Add("666", new Action(case3));
+            Dictionary.Add("2", new Action(case4));
+            Dictionary.Add("3", new Action(case5));
+            Dictionary.Add("4", new Action(case6));
         }
 
+        static private void case0()
+        {
+            try
+            {
+                case1();
+                case2();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
         static private void case1()
         {
             try

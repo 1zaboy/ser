@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OfficeOpenXml;
 using OfficeOpenXml.ConditionalFormatting;
+using OfficeOpenXml.FormulaParsing.Utilities;
 using ser.DATA_DB;
 
 namespace ser
@@ -73,7 +74,7 @@ namespace ser
         public string ViewGroup()
         {
             dbb _db = new dbb();
-            List<C_User_In_Room> data1 = _db.C_User_In_Room.Where(t=>t.Admin).ToList();
+            List<C_User_In_Room> data1 = _db.C_User_In_Room.Where(t => t.Admin).ToList();
             if (data1.Any())
             {
                 string app_path_directory = AppDomain.CurrentDomain.BaseDirectory;
@@ -107,7 +108,7 @@ namespace ser
 
                 str = app_path_directory + @"RepotsGroup\";
                 Directory.CreateDirectory(str);
-                
+
 
                 name_file = @"NewReport" + DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss") + @".xlsx";
                 var file = File.Create(str + name_file);
@@ -117,52 +118,48 @@ namespace ser
                 return str + name_file;
             }
 
-            return "Error";
+            return "Нет групп";
         }
 
         public string ViewUsers()
         {
             dbb _db = new dbb();
+            
+            string app_path_directory = AppDomain.CurrentDomain.BaseDirectory;
+            string path_to_xlsx = app_path_directory + "Report.xlsx";
+            string name_file = "";
+            string str = "";
+            ExcelPackage xlPackage = new ExcelPackage(new FileInfo(path_to_xlsx));
+
+            var myWorksheet = xlPackage.Workbook.Worksheets.First(); //select sheet here
+
+            myWorksheet.Cells[1, 1].Value = "Пользователи";
+
+            myWorksheet.Cells["A1:C1"].Merge = true;
+
+            myWorksheet.Cells[2, 1].Value = "Номер";
+            myWorksheet.Cells[2, 2].Value = "Имя";
+            myWorksheet.Cells[2, 3].Value = "Пароль";
+
+            int t = 3;
             List<UserNotType> data1 = _db.UserNotType.ToList();
-            if (data1.Any())
+            foreach (var VARIABLE in data1)
             {
-                string app_path_directory = AppDomain.CurrentDomain.BaseDirectory;
-                string path_to_xlsx = app_path_directory + "Report.xlsx";
-                string name_file = "";
-                string str = "";
-                ExcelPackage xlPackage = new ExcelPackage(new FileInfo(path_to_xlsx));
-
-                var myWorksheet = xlPackage.Workbook.Worksheets.First(); //select sheet here
-
-                myWorksheet.Cells[1, 1].Value = "Пользователи";
-
-                myWorksheet.Cells["A1:С1"].Merge = true;
-
-                myWorksheet.Cells[2, 1].Value = "Номер";
-                myWorksheet.Cells[2, 2].Value = "Имя";
-                myWorksheet.Cells[2, 3].Value = "Пароль";
-
-                int t = 3;
-                foreach (var VARIABLE in data1)
-                {
-                    myWorksheet.Cells[t, 1].Value = VARIABLE.ToString();
-                    myWorksheet.Cells[t, 2].Value = VARIABLE.NameUser;
-                    myWorksheet.Cells[t, 3].Value = VARIABLE.Password;
-                    t += 1;
-                }
-
-                str = app_path_directory + @"RepotsUsers\";
-                Directory.CreateDirectory(str);
-
-                name_file = @"NewReport" + DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss") + @".xlsx";
-                var file = File.Create(str + name_file);
-                file.Close();
-                var fi = new FileInfo(str + name_file);
-                xlPackage.SaveAs(fi);
-                return str + name_file;
+                myWorksheet.Cells[t, 1].Value = VARIABLE.Id.ToString();
+                myWorksheet.Cells[t, 2].Value = VARIABLE.NameUser;
+                myWorksheet.Cells[t, 3].Value = VARIABLE.Password;
+                t += 1;
             }
 
-            return "Error";
+            str = app_path_directory + @"RepotsUsers\";
+            Directory.CreateDirectory(str);
+
+            name_file = @"NewReport" + DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss") + @".xlsx";
+            var file = File.Create(str + name_file);
+            file.Close();
+            var fi = new FileInfo(str + name_file);
+            xlPackage.SaveAs(fi);
+            return str + name_file;
         }
     }
 }
