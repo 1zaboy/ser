@@ -257,36 +257,48 @@ namespace ser
             try
             {
                 dbb _db = new dbb();
-                var main_q = _db.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.UserNotType.Id.ToString() == mess.text_message).ToList();
-                if (main_q.Any())
+                var nany = _db.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.UserNotType.Id.ToString() == mess.index_user && t.Admin && t.Participant).ToList();
+                if (nany.Any())
                 {
-                    main_q.First().Participant = false;
-                    _db.SaveChanges();
-                }
-
-                StructDocMess fDocMess = new StructDocMess();
-                fDocMess.index_command = "25";
-                fDocMess.index_user = "-1";
-                fDocMess.name_user = "Server";
-                fDocMess.index_room = mess.index_room;
-                fDocMess.name_room = mess.name_room;
-                fDocMess.text_message = "Удален пользователь: " + mess.name_user;
-                fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
-
-                var all_user_in_room = _db.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList();
-                foreach (var cUserInRoom in all_user_in_room)
-                {
-                    int r = cUserInRoom.UserNotType.index_in_list ?? -1;
-                    if (r != -1)
+                    var main_q = _db.C_User_In_Room.Where(t =>
+                            t.C_Room.TableId == mess.index_room && t.UserNotType.Id.ToString() == mess.text_message)
+                        .ToList();
+                    if (main_q.Any())
                     {
-                        if (ServerObject.DictionaryClients.ContainsKey(r))
+                        main_q.First().Participant = false;
+                        _db.SaveChanges();
+
+                        StructDocMess fDocMess = new StructDocMess();
+                        fDocMess.index_command = "25";
+                        fDocMess.index_user = "-1";
+                        fDocMess.name_user = "Server";
+                        fDocMess.index_room = mess.index_room;
+                        fDocMess.name_room = mess.name_room;
+                        fDocMess.text_message = "Удален пользователь: " + mess.text_message;
+                        fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
+
+                        var all_user_in_room = _db.C_User_In_Room
+                            .Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList();
+                        foreach (var cUserInRoom in all_user_in_room)
                         {
-                            ServerObject.DictionaryClients[r].ClientObject
-                                .SendMess(XmlParser.XmlParser.struct_to_string(mess));
-                            ServerObject.DictionaryClients[r].ClientObject
-                                .SendMess(XmlParser.XmlParser.struct_to_string(fDocMess));
+                            int r = cUserInRoom.UserNotType.index_in_list ?? -1;
+                            if (r != -1)
+                            {
+                                if (ServerObject.DictionaryClients.ContainsKey(r))
+                                {
+                                    ServerObject.DictionaryClients[r].ClientObject
+                                        .SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                                    ServerObject.DictionaryClients[r].ClientObject
+                                        .SendMess(XmlParser.XmlParser.struct_to_string(fDocMess));
+                                }
+                            }
                         }
                     }
+                }
+                else
+                {
+                    mess.text_message = "AA2B206A-8857-44E0-8190-4F93A9BCC06F";
+                    _clientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                 }
 
                 return true;
@@ -377,7 +389,7 @@ namespace ser
                     var s = _db.C_User_In_Room.Where(t => t.UserNotType.NameUser == user.NameUser).ToList().First();
                     var Mess_in_room = new message_on_room();
                     Mess_in_room.C_User_In_Room = s;
-                    Mess_in_room.text_mess = mess.text_message.Skip(5).ToString();
+                    Mess_in_room.text_mess = mess.text_message.Substring(5, mess.text_message.Length - 5);
                     Mess_in_room.time_mess = DateTime.Now;
                     _db.message_on_room.Add(Mess_in_room);
                     _db.SaveChanges();
@@ -639,6 +651,27 @@ namespace ser
                         if (r5.Any())
                             r5[0].Admin = false;
                         _db.SaveChanges();
+                    }
+
+                    StructDocMess fDocMess = new StructDocMess();
+                    fDocMess.index_command = "25";
+                    fDocMess.index_user = "-1";
+                    fDocMess.name_user = "Server";
+                    fDocMess.index_room = mess.index_room;
+                    fDocMess.name_room = mess.name_room;
+                    fDocMess.text_message = "Вышел из чата "+mess.name_user;
+                    fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
+
+                    List<C_User_In_Room> LUser = _db.C_User_In_Room
+                        .Where(t => t.C_Room.TableId == mess.index_room && t.Participant)
+                        .ToList();
+                    int index = -1;
+                    foreach (var VARIABLE in LUser)
+                    {
+                        if (VARIABLE.UserNotType.index_in_list.HasValue)
+                            index = VARIABLE.UserNotType.index_in_list.Value;
+                        if (ServerObject.DictionaryClients.ContainsKey(index))
+                            ServerObject.DictionaryClients[index].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                     }
                 }
 
