@@ -276,6 +276,13 @@ namespace ser
                         fDocMess.name_room = mess.name_room;
                         fDocMess.text_message = "Удален пользователь: " + main_q.First().UserNotType.NameUser;
                         fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
+                        
+                        var Mess_in_room = new message_on_room();
+                        Mess_in_room.C_User_In_Room = main_q.First();
+                        Mess_in_room.text_mess = "Удален пользователь: " + main_q.First().UserNotType.NameUser;
+                        Mess_in_room.time_mess = DateTime.Now;
+                        _db.message_on_room.Add(Mess_in_room);
+                        _db.SaveChanges();
 
                         var all_user_in_room = _db.C_User_In_Room
                             .Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList();
@@ -297,9 +304,10 @@ namespace ser
                         var all_user_in_room1 = _db.UserNotType
                             .Where(t => t.Id.ToString() == mess.text_message).ToList();
                         fDocMess.text_message = "9E0D14D2-6A42-43F0-BEA6-F75E780EB63B";
-                        Console.WriteLine(all_user_in_room1.Count);
+                        
                         foreach (var cUserInRoom in all_user_in_room)
                         {
+                            Console.WriteLine("send");
                             int r = cUserInRoom.UserNotType.index_in_list ?? -1;
                             if (r != -1)
                             {
