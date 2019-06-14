@@ -297,6 +297,7 @@ namespace ser
                         var all_user_in_room1 = _db.UserNotType
                             .Where(t => t.Id.ToString() == mess.text_message).ToList();
                         fDocMess.text_message = "9E0D14D2-6A42-43F0-BEA6-F75E780EB63B";
+                        Console.WriteLine(all_user_in_room1.Count);
                         foreach (var cUserInRoom in all_user_in_room)
                         {
                             int r = cUserInRoom.UserNotType.index_in_list ?? -1;
