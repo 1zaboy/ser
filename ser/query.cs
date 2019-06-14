@@ -276,7 +276,7 @@ namespace ser
                         fDocMess.name_room = mess.name_room;
                         fDocMess.text_message = "Удален пользователь: " + main_q.First().UserNotType.NameUser;
                         fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
-                        
+
                         var Mess_in_room = new message_on_room();
                         Mess_in_room.C_User_In_Room = main_q.First();
                         Mess_in_room.text_mess = "Удален пользователь: " + main_q.First().UserNotType.NameUser;
@@ -304,7 +304,7 @@ namespace ser
                         var all_user_in_room1 = _db.UserNotType
                             .Where(t => t.Id.ToString() == mess.text_message).ToList();
                         fDocMess.text_message = "9E0D14D2-6A42-43F0-BEA6-F75E780EB63B";
-                        
+
                         foreach (var cUserInRoom in all_user_in_room)
                         {
                             Console.WriteLine("send");
@@ -346,7 +346,7 @@ namespace ser
                 if (user1.Any())
                 {
                     var user = user1.First();
-                    int r = user.index_in_list?? -1;
+                    int r = user.index_in_list ?? -1;
                     //Console.WriteLine("invite index: {0}", r);
                     if (r != -1 && main_user.Id != user.Id)
                     {
@@ -670,14 +670,13 @@ namespace ser
                     _user.Participant = false;
                     _user.Admin = false;
                     _db.SaveChanges();
-                    
-                    if (_user.Admin)
-                    {
-                        var r5 = _db.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList();
-                        if (r5.Any())
-                            r5[0].Admin = false;
-                        _db.SaveChanges();
-                    }
+
+
+                    var r5 = _db.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList();
+                    if (r5.Any())
+                        r5[0].Admin = true;
+                    _db.SaveChanges();
+
 
                     StructDocMess fDocMess = new StructDocMess();
                     fDocMess.index_command = "25";
@@ -685,7 +684,7 @@ namespace ser
                     fDocMess.name_user = "Server";
                     fDocMess.index_room = mess.index_room;
                     fDocMess.name_room = mess.name_room;
-                    fDocMess.text_message = "Вышел из чата "+mess.name_user;
+                    fDocMess.text_message = "Вышел из чата " + mess.name_user;
                     fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
 
                     List<C_User_In_Room> LUser = _db.C_User_In_Room
