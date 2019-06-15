@@ -341,40 +341,37 @@ namespace ser
             try
             {
                 dbb _db = new dbb();
+                Int32 r = -1;
                 var main_user = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList().First();
-                var user1 = _db.UserNotType.Where(t => t.NameUser == mess.text_message).ToList();
-                if (user1.Any())
+                var m = _db.C_User_In_Room.Where(t => t.Participant == false && t.C_Room.TableId == mess.index_room && t.UserNotType.NameUser == mess.text_message)
+                    .ToList();
+                if (m.Any())
                 {
-                    var user = user1.First();
-                    int r = user.index_in_list ?? -1;
-                    //Console.WriteLine("invite index: {0}", r);
-                    if (r != -1 && main_user.Id != user.Id)
+                    if (m.First().UserNotType.index_in_list.HasValue)
+                        r = m.First().UserNotType.index_in_list.Value;
+                    if (ServerObject.DictionaryClients.ContainsKey(r))
                     {
-                        //ServerObject.clients[r - 1].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
-                        if (ServerObject.DictionaryClients.ContainsKey(r))
-                        {
-                            mess.count_users_in_room = _db.C_User_In_Room
-                                .Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList().Count;
-                            ServerObject.DictionaryClients[r].ClientObject
-                                .SendMess(XmlParser.XmlParser.struct_to_string(mess));
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                        mess.count_users_in_room = _db.C_User_In_Room
+                            .Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList().Count;
+                        ServerObject.DictionaryClients[r].ClientObject
+                            .SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                        return true;
                     }
                     else
                     {
-                        r = main_user.index_in_list ?? default(int);
-                        ServerObject.DictionaryClients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                        if (main_user.index_in_list.HasValue)
+                            r = main_user.index_in_list.Value;
+                        if (ServerObject.DictionaryClients.ContainsKey(r))
+                            ServerObject.DictionaryClients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                         return false;
                     }
                 }
                 else
                 {
-                    int r1 = main_user.index_in_list ?? default(int);
-                    ServerObject.DictionaryClients[r1].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                    if (main_user.index_in_list.HasValue)
+                        r = main_user.index_in_list.Value;
+                    if (ServerObject.DictionaryClients.ContainsKey(r))
+                        ServerObject.DictionaryClients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                     return false;
                 }
             }
