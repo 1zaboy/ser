@@ -710,7 +710,11 @@ namespace ser
                             index = VARIABLE.UserNotType.index_in_list.Value;
                         Console.WriteLine("case90 номер в масиве: {0}", index);
                         if (ServerObject.DictionaryClients.ContainsKey(index))
-                            ServerObject.DictionaryClients[index].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                        {
+                            ServerObject.DictionaryClients[index].ClientObject
+                                .SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                            Console.WriteLine("Сообщения о выходе отправлено: {0}", mess.text_message);
+                        }
                     }
                 }
 
