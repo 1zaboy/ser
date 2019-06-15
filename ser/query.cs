@@ -307,7 +307,7 @@ namespace ser
 
                         foreach (var cUserInRoom in all_user_in_room1)
                         {
-                            Console.WriteLine("send");
+                            //Console.WriteLine("send");
                             int r = cUserInRoom.index_in_list ?? -1;
                             if (r != -1)
                             {
@@ -665,7 +665,7 @@ namespace ser
                 {
                     message_on_room sMessageOnRoom = new message_on_room();
                     sMessageOnRoom.Room_U = userInRoom.First().TableId;
-                    sMessageOnRoom.text_mess = "Вышел из чата " + mess.name_user;
+                    sMessageOnRoom.text_mess = "Вышел из чата пользователь под именем:" + mess.name_user;
                     sMessageOnRoom.time_mess = DateTime.Now;
                     _db.message_on_room.Add(sMessageOnRoom);
                     _db.SaveChanges();
@@ -692,7 +692,7 @@ namespace ser
                     fDocMess.name_user = "Server";
                     fDocMess.index_room = mess.index_room;
                     fDocMess.name_room = mess.name_room;
-                    fDocMess.text_message = "Вышел из чата " + mess.name_user;
+                    fDocMess.text_message = "Вышел из чата пользователь под именем: " + mess.name_user;
                     fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
 
 
@@ -700,17 +700,17 @@ namespace ser
                         .Where(t => t.C_Room.TableId == mess.index_room && t.Participant)
                         .ToList();
                     int index = -1;
-                    Console.WriteLine("Вышел из группы: {0}\tКоличество людей в группе {1}",mess.name_user, LUser.Count);
+                    //Console.WriteLine("Вышел из группы: {0}\tКоличество людей в группе {1}",mess.name_user, LUser.Count);
                     foreach (var VARIABLE in LUser)
                     {
                         if (VARIABLE.UserNotType.index_in_list.HasValue)
                             index = VARIABLE.UserNotType.index_in_list.Value;
-                        Console.WriteLine("case90 номер в масиве: {0}", index);
+                       // Console.WriteLine("case90 номер в масиве: {0}", index);
                         if (ServerObject.DictionaryClients.ContainsKey(index))
                         {
                             ServerObject.DictionaryClients[index].ClientObject
                                 .SendMess(XmlParser.XmlParser.struct_to_string(fDocMess));
-                            Console.WriteLine("Сообщения о выходе отправлено: {0}", mess.text_message);
+                            //Console.WriteLine("Сообщения о выходе отправлено: {0}", mess.text_message);
                         }
                     }
                 }

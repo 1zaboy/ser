@@ -95,7 +95,7 @@ namespace ser.XmlParser
                 XElement element = new XElement("Message");
                 XElement iphoneCompanyElem = new XElement("index_command", mess.index_command);
                 element.Add(iphoneCompanyElem);
-                Console.WriteLine(mess.index_user);
+                //Console.WriteLine(mess.index_user);
 
                 var userAllRooms = dbb.C_User_In_Room.Where(t => t.UserNotType.Id.ToString() == mess.index_user && t.Participant).ToList();
 
