@@ -269,7 +269,7 @@ namespace ser
                         _db.SaveChanges();
 
                         StructDocMess fDocMess = new StructDocMess();
-                        fDocMess.index_command = "25";
+                        fDocMess.index_command = "26";
                         fDocMess.index_user = "-1";
                         fDocMess.name_user = "Server";
                         fDocMess.index_room = mess.index_room;
@@ -690,7 +690,7 @@ namespace ser
                     }
 
                     StructDocMess fDocMess = new StructDocMess();
-                    fDocMess.index_command = "25";
+                    fDocMess.index_command = "26";
                     fDocMess.index_user = "-1";
                     fDocMess.name_user = "Server";
                     fDocMess.index_room = mess.index_room;
