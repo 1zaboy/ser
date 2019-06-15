@@ -667,7 +667,7 @@ namespace ser
                 if (userInRoom.Any())
                 {
                     message_on_room sMessageOnRoom = new message_on_room();
-                    sMessageOnRoom.Room_U = mess.index_room;
+                    sMessageOnRoom.Room_U = userInRoom.First().TableId;
                     sMessageOnRoom.text_mess = "Вышел из чата " + mess.name_user;
                     sMessageOnRoom.time_mess = DateTime.Now;
                     _db.message_on_room.Add(sMessageOnRoom);
