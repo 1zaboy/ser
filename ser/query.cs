@@ -712,7 +712,7 @@ namespace ser
                         if (ServerObject.DictionaryClients.ContainsKey(index))
                         {
                             ServerObject.DictionaryClients[index].ClientObject
-                                .SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                                .SendMess(XmlParser.XmlParser.struct_to_string(fDocMess));
                             Console.WriteLine("Сообщения о выходе отправлено: {0}", mess.text_message);
                         }
                     }
