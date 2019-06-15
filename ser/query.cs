@@ -666,6 +666,13 @@ namespace ser
                     .Where(t => t.UserNotType.Id.ToString() == mess.index_user && t.C_Room.TableId == mess.index_room).ToList();
                 if (userInRoom.Any())
                 {
+                    message_on_room sMessageOnRoom = new message_on_room();
+                    sMessageOnRoom.Room_U = mess.index_room;
+                    sMessageOnRoom.text_mess = "Вышел из чата " + mess.name_user;
+                    sMessageOnRoom.time_mess = DateTime.Now;
+                    _db.message_on_room.Add(sMessageOnRoom);
+                    _db.SaveChanges();
+
                     var _user = userInRoom.First();
                     _user.Participant = false;
                     _user.Admin = false;
@@ -681,13 +688,6 @@ namespace ser
                             r5[0].Admin = true;
                         _db.SaveChanges();
                     }
-
-                    message_on_room sMessageOnRoom = new message_on_room();
-                    sMessageOnRoom.Room_U = mess.index_room;
-                    sMessageOnRoom.text_mess = "Вышел из чата " + mess.name_user;
-                    sMessageOnRoom.time_mess = DateTime.Now;
-                    _db.message_on_room.Add(sMessageOnRoom);
-                    _db.SaveChanges();
 
                     StructDocMess fDocMess = new StructDocMess();
                     fDocMess.index_command = "25";
