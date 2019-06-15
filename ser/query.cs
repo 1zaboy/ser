@@ -671,12 +671,23 @@ namespace ser
                     _user.Admin = false;
                     _db.SaveChanges();
 
+                    var adm = _db.C_User_In_Room
+                        .Where(t => t.Admin && t.Participant && t.C_Room.TableId == mess.index_room).ToList();
+                    if (!adm.Any())
+                    {
+                        var r5 = _db.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.Participant)
+                            .ToList();
+                        if (r5.Any())
+                            r5[0].Admin = true;
+                        _db.SaveChanges();
+                    }
 
-                    var r5 = _db.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.Participant).ToList();
-                    if (r5.Any())
-                        r5[0].Admin = true;
+                    message_on_room sMessageOnRoom = new message_on_room();
+                    sMessageOnRoom.Room_U = mess.index_room;
+                    sMessageOnRoom.text_mess = "Вышел из чата " + mess.name_user;
+                    sMessageOnRoom.time_mess = DateTime.Now;
+                    _db.message_on_room.Add(sMessageOnRoom);
                     _db.SaveChanges();
-
 
                     StructDocMess fDocMess = new StructDocMess();
                     fDocMess.index_command = "25";
@@ -687,10 +698,12 @@ namespace ser
                     fDocMess.text_message = "Вышел из чата " + mess.name_user;
                     fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
 
+
                     List<C_User_In_Room> LUser = _db.C_User_In_Room
                         .Where(t => t.C_Room.TableId == mess.index_room && t.Participant)
                         .ToList();
                     int index = -1;
+                    Console.WriteLine("Вышел из группы: {9}\tКоличество людей в группе {1}",mess.name_user, LUser.Count);
                     foreach (var VARIABLE in LUser)
                     {
                         if (VARIABLE.UserNotType.index_in_list.HasValue)
