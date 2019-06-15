@@ -305,10 +305,10 @@ namespace ser
                             .Where(t => t.Id.ToString() == mess.text_message).ToList();
                         fDocMess.text_message = "9E0D14D2-6A42-43F0-BEA6-F75E780EB63B";
 
-                        foreach (var cUserInRoom in all_user_in_room)
+                        foreach (var cUserInRoom in all_user_in_room1)
                         {
                             Console.WriteLine("send");
-                            int r = cUserInRoom.UserNotType.index_in_list ?? -1;
+                            int r = cUserInRoom.index_in_list ?? -1;
                             if (r != -1)
                             {
                                 if (ServerObject.DictionaryClients.ContainsKey(r))
