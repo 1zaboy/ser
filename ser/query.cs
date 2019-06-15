@@ -708,6 +708,7 @@ namespace ser
                     {
                         if (VARIABLE.UserNotType.index_in_list.HasValue)
                             index = VARIABLE.UserNotType.index_in_list.Value;
+                        Console.WriteLine("case90 номер в масиве: {0}", index);
                         if (ServerObject.DictionaryClients.ContainsKey(index))
                             ServerObject.DictionaryClients[index].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                     }
