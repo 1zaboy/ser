@@ -703,7 +703,7 @@ namespace ser
                         .Where(t => t.C_Room.TableId == mess.index_room && t.Participant)
                         .ToList();
                     int index = -1;
-                    Console.WriteLine("Вышел из группы: {9}\tКоличество людей в группе {1}",mess.name_user, LUser.Count);
+                    Console.WriteLine("Вышел из группы: {0}\tКоличество людей в группе {1}",mess.name_user, LUser.Count);
                     foreach (var VARIABLE in LUser)
                     {
                         if (VARIABLE.UserNotType.index_in_list.HasValue)
