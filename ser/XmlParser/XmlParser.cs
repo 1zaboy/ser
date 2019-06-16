@@ -347,9 +347,11 @@ namespace ser.XmlParser
                 element.Add(iphoneCompanyElem);
 
                 List<UserNotType> LUsers = new List<UserNotType>();
+                List<C_User_In_Room> lUsersList = new List<C_User_In_Room>();
                 try
                 {
                     LUsers = dbb.UserNotType.Where(t => t.NameUser.Contains(mess.text_message)).OrderBy(t=>t.NameUser).Take(take).ToList();
+                    lUsersList = dbb.C_User_In_Room.Where(t => t.C_Room.TableId == mess.index_room && t.Participant == true).ToList();
                 }
                 catch (Exception e)
                 {
@@ -361,14 +363,18 @@ namespace ser.XmlParser
                     XElement elementAllUsers = new XElement("Users");
                     foreach (var us in LUsers)
                     {
-                        XElement elementUsers = new XElement("User");
-                        iphoneCompanyElem = new XElement("index_user", us.Id);
-                        elementUsers.Add(iphoneCompanyElem);
-                        iphoneCompanyElem = new XElement("name_user", us.NameUser);
-                        elementUsers.Add(iphoneCompanyElem);
-                        iphoneCompanyElem = new XElement("img_user", "");
-                        elementUsers.Add(iphoneCompanyElem);
-                        elementAllUsers.Add(elementUsers);
+                        var ss = lUsersList.Where(t => t.UserNotType.NameUser == us.NameUser).ToList();
+                        if (!ss.Any())
+                        {
+                            XElement elementUsers = new XElement("User");
+                            iphoneCompanyElem = new XElement("index_user", us.Id);
+                            elementUsers.Add(iphoneCompanyElem);
+                            iphoneCompanyElem = new XElement("name_user", us.NameUser);
+                            elementUsers.Add(iphoneCompanyElem);
+                            iphoneCompanyElem = new XElement("img_user", "");
+                            elementUsers.Add(iphoneCompanyElem);
+                            elementAllUsers.Add(elementUsers);
+                        }
                     }
                     element.Add(elementAllUsers);
                 }
