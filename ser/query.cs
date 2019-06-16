@@ -91,7 +91,7 @@ namespace ser
             try
             {
                 dbb _db = new dbb();
-                var r = _db.UserNotType.Where(t => t.NameUser == mess.name_user && t.Password == mess.password_user).ToList();
+                var r = _db.UserNotType.Where(t => t.NameUser == mess.name_user).ToList();
                 if (!r.Any())
                 {
                     UserNotType userNotType = new UserNotType();
