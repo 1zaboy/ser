@@ -343,12 +343,14 @@ namespace ser
                 dbb _db = new dbb();
                 Int32 r = -1;
                 var main_user = _db.UserNotType.Where(t => t.Id.ToString() == mess.index_user).ToList().First();
-                var m = _db.C_User_In_Room.Where(t => t.Participant == false && t.C_Room.TableId == mess.index_room && t.UserNotType.NameUser == mess.text_message)
+                var m1 = _db.C_User_In_Room.Where(t => t.Participant && t.C_Room.TableId == mess.index_room && t.UserNotType.NameUser == mess.text_message)
                     .ToList();
-                if (m.Any())
+                var m = _db.UserNotType.Where(t => t.NameUser == mess.text_message).ToList()
+                    .ToList();
+                if (!m.Any())
                 {
-                    if (m.First().UserNotType.index_in_list.HasValue)
-                        r = m.First().UserNotType.index_in_list.Value;
+                    if (m.First().index_in_list.HasValue)
+                        r = m.First().index_in_list.Value;
                     if (ServerObject.DictionaryClients.ContainsKey(r))
                     {
                         mess.count_users_in_room = _db.C_User_In_Room
