@@ -107,7 +107,8 @@ namespace ser
                 builder.Append(Encoding.UTF8.GetString(data, 0, bytes));
             }
             while (Stream.DataAvailable);
-
+            Console.WriteLine(builder);
+            Console.WriteLine('\n');
             return builder.ToString();
         }
 
