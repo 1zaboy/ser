@@ -667,7 +667,7 @@ namespace ser
                 {
                     message_on_room sMessageOnRoom = new message_on_room();
                     sMessageOnRoom.Room_U = userInRoom.First().TableId;
-                    sMessageOnRoom.text_mess = "Вышел из чата пользователь под именем:" + mess.name_user;
+                    sMessageOnRoom.text_mess = "Вышел из чата пользователь под иmенеm:" + mess.name_user;
                     sMessageOnRoom.time_mess = DateTime.Now;
                     _db.message_on_room.Add(sMessageOnRoom);
                     _db.SaveChanges();
@@ -694,7 +694,7 @@ namespace ser
                     fDocMess.name_user = "Server";
                     fDocMess.index_room = mess.index_room;
                     fDocMess.name_room = mess.name_room;
-                    fDocMess.text_message = "Вышел из чата пользователь под именем: " + mess.name_user;
+                    fDocMess.text_message = "Вышел из чата пользователь под иmенеm: " + mess.name_user;
                     fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
 
 
