@@ -366,7 +366,10 @@ namespace ser
                         if (main_user.index_in_list.HasValue)
                             r = main_user.index_in_list.Value;
                         if (ServerObject.DictionaryClients.ContainsKey(r))
-                            ServerObject.DictionaryClients[r].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
+                        {
+                            string sf = XmlParser.XmlParser.struct_to_string(mess);
+                            ServerObject.DictionaryClients[r].ClientObject.SendMess(sf);
+                        }
                         return false;
                     }
                 }
