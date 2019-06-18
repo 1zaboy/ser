@@ -347,7 +347,9 @@ namespace ser
                     .ToList();
                 var m = _db.UserNotType.Where(t => t.NameUser == mess.text_message).ToList()
                     .ToList();
-                if (!m1.Any())
+                bool ddAny = m1.Any();
+                Console.WriteLine(ddAny);
+                if (!ddAny)
                 {
                     if (m.First().index_in_list.HasValue)
                         r = m.First().index_in_list.Value;
