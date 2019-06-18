@@ -614,12 +614,18 @@ namespace ser
                         ServerObject.DictionaryClients[v4].ClientObject
                             .SendMess(XmlParser.XmlParser.struct_to_string(mess));
 
-                        message_on_room me = new message_on_room();
-                        me.Room_U = mess.index_room;
-                        me.text_mess = "Make call";
-                        me.time_mess = DateTime.Now;
-                        _db.message_on_room.Add(me);
-                        _db.SaveChanges();
+                        var sd = _db.C_User_In_Room.Where(t =>
+                            t.UserNotType.Id.ToString() == mess.index_user && t.Participant &&
+                            t.C_Room.TableId == mess.index_room).ToList();
+                        if (sd.Any())
+                        {
+                            message_on_room me = new message_on_room();
+                            me.Room_U = sd.First().TableId;
+                            me.text_mess = "Make call";
+                            me.time_mess = DateTime.Now;
+                            _db.message_on_room.Add(me);
+                            _db.SaveChanges();
+                        }
                     }
                 }
 
