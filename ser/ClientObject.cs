@@ -126,16 +126,18 @@ namespace ser
         {
             try
             {
+                string start_str = "<Message>";
                 string end_str = "</Message>";
                 List<string> strList = new List<string>();
                 while (xml != "")
                 {
-                    int ind = xml.IndexOf(end_str);
-                    if (ind == -1)
+                    int ind1 = xml.IndexOf(start_str);
+                    int ind2 = xml.IndexOf(end_str);
+                    if (ind1 == -1 && ind2 == -1)
                         break;
-                    string g = xml.Substring(0, ind + end_str.Length);
+                    string g = xml.Substring(ind1, ind2 + end_str.Length);
                     strList.Add(g);
-                    xml = xml.Remove(0, ind + end_str.Length);
+                    xml = xml.Remove(ind1, ind2 + end_str.Length);
                 }
 
                 return strList;
