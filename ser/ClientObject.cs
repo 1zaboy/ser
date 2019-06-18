@@ -134,6 +134,8 @@ namespace ser
                     if(xml.Length < start_str.Length + end_str.Length)
                         break;
                     int ind1 = xml.IndexOf(start_str);
+                    if(ind1==-1)
+                        break;
                     int ind2 = xml.IndexOf(end_str, ind1);
                     Console.WriteLine("xml string: {0}", xml);
                     Console.WriteLine("ind1: {0}", ind1);
