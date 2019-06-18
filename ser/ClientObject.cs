@@ -135,9 +135,12 @@ namespace ser
                     int ind2 = xml.IndexOf(end_str);
                     if (ind1 == -1 && ind2 == -1)
                         break;
-                    string g = xml.Substring(ind1, ind2 + end_str.Length);
-                    strList.Add(g);
-                    xml = xml.Remove(ind1, ind2 + end_str.Length);
+                    if (ind1 + start_str.Length < ind2 && ind2 + end_str.Length < xml.Length)
+                    {
+                        string g = xml.Substring(ind1, ind2 + end_str.Length);
+                        strList.Add(g);
+                        xml = xml.Remove(ind1, ind2 + end_str.Length);
+                    }
                 }
 
                 return strList;
