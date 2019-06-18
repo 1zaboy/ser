@@ -23,7 +23,7 @@ namespace ser
         ServerObject server;
 
         Thread LThrerad;
-        
+
         public ClientObject(string ip, int port)
         {
             _ip = ip;
@@ -34,12 +34,12 @@ namespace ser
             Id = Guid.NewGuid().ToString();
             client = tcpClient;
             server = serverObject;
-            
+
 
             LThrerad = new Thread(new ThreadStart(this.Process));
             LThrerad.Start();
         }
-       
+
         public void Process()
         {
             try
@@ -52,13 +52,16 @@ namespace ser
                     try
                     {
                         message = GetMessage();
-                        //Console.WriteLine(message);
-                        string i = XmlParser.XmlParser.GetIndexCommand(message);
-                        if (i != 0.ToString())
+                        List<string> sList = CutXml(message);
+                        foreach (var VARIABLE in sList)
                         {
-                            query.Dictionary[i].DynamicInvoke(XmlParser.XmlParser.string_to_struct(message));
+                            string i = XmlParser.XmlParser.GetIndexCommand(VARIABLE);
+                            if (i != 0.ToString())
+                            {
+                                query.Dictionary[i].DynamicInvoke(XmlParser.XmlParser.string_to_struct(VARIABLE));
+                            }
                         }
-                        
+
                     }
                     catch (Exception e)
                     {
@@ -117,6 +120,31 @@ namespace ser
                 Stream.Close();
             if (client != null)
                 client.Close();
+        }
+
+        private List<string> CutXml(string xml)
+        {
+            try
+            {
+                string end_str = "</Message>";
+                List<string> strList = new List<string>();
+                while (xml != "")
+                {
+                    int ind = xml.IndexOf(end_str);
+                    if (ind == -1)
+                        break;
+                    string g = xml.Substring(0, ind + end_str.Length);
+                    strList.Add(g);
+                    xml = xml.Remove(0, ind + end_str.Length);
+                }
+
+                return strList;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 
