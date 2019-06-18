@@ -141,9 +141,9 @@ namespace ser
                         break;
                     if (ind1 + start_str.Length < ind2 && ind2 + end_str.Length < xml.Length)
                     {
-                        string g = xml.Substring(ind1, ind1 - (ind2 + end_str.Length));
+                        string g = xml.Substring(ind1, (ind2 + end_str.Length) - ind1);
                         strList.Add(g);
-                        xml = xml.Remove(ind1, ind1 - (ind2 + end_str.Length));
+                        xml = xml.Remove(ind1, (ind2 + end_str.Length) - ind1);
                     }
                 }
 
