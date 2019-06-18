@@ -132,7 +132,7 @@ namespace ser
                 while (xml != "")
                 {
                     int ind1 = xml.IndexOf(start_str);
-                    int ind2 = xml.IndexOf(end_str);
+                    int ind2 = xml.IndexOf(end_str, ind1);
                     Console.WriteLine("xml string: {0}", xml);
                     Console.WriteLine("ind1: {0}", ind1);
                     Console.WriteLine("ind2: {0}", ind2);
