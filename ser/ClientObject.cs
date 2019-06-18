@@ -137,7 +137,7 @@ namespace ser
                     Console.WriteLine("ind1: {0}", ind1);
                     Console.WriteLine("ind2: {0}", ind2);
                     Console.WriteLine('\n');
-                    if (ind1 == -1 && ind2 == -1)
+                    if (ind1 == -1 || ind2 == -1)
                         break;
                     if (ind1 + start_str.Length < ind2 && ind2 + end_str.Length < xml.Length)
                     {
