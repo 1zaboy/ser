@@ -131,6 +131,8 @@ namespace ser
                 List<string> strList = new List<string>();
                 while (xml != "")
                 {
+                    if(xml.Length < start_str.Length + end_str.Length)
+                        break;
                     int ind1 = xml.IndexOf(start_str);
                     int ind2 = xml.IndexOf(end_str, ind1);
                     Console.WriteLine("xml string: {0}", xml);
@@ -144,6 +146,7 @@ namespace ser
                         string g = xml.Substring(ind1, (ind2 + end_str.Length) - ind1);
                         strList.Add(g);
                         xml = xml.Remove(ind1, (ind2 + end_str.Length) - ind1);
+                        xml = xml.Replace(" ", "");
                     }
                 }
 
