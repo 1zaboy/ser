@@ -617,7 +617,7 @@ namespace ser
                         message_on_room me = new message_on_room();
                         me.Room_U = mess.index_room;
                         me.text_mess = "Make call";
-                        me.text_mess = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
+                        me.time_mess = DateTime.Now;
                         _db.message_on_room.Add(me);
                         _db.SaveChanges();
                     }
