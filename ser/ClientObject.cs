@@ -133,13 +133,17 @@ namespace ser
                 {
                     int ind1 = xml.IndexOf(start_str);
                     int ind2 = xml.IndexOf(end_str);
+                    Console.WriteLine("xml string: {0}", xml);
+                    Console.WriteLine("ind1: {0}", ind1);
+                    Console.WriteLine("ind2: {0}", ind2);
+                    Console.WriteLine('\n');
                     if (ind1 == -1 && ind2 == -1)
                         break;
                     if (ind1 + start_str.Length < ind2 && ind2 + end_str.Length < xml.Length)
                     {
-                        string g = xml.Substring(ind1, ind2 + end_str.Length);
+                        string g = xml.Substring(ind1, ind1 - (ind2 + end_str.Length));
                         strList.Add(g);
-                        xml = xml.Remove(ind1, ind2 + end_str.Length);
+                        xml = xml.Remove(ind1, ind1 - (ind2 + end_str.Length));
                     }
                 }
 
