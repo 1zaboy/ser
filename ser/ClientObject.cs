@@ -40,6 +40,8 @@ namespace ser
             LThrerad.Start();
         }
 
+        //thread method
+        // get data with socket and run mathod from puery.cs by index comand in xml
         public void Process()
         {
             try
@@ -82,6 +84,7 @@ namespace ser
             }
         }
 
+        //send data to connect user
         public bool SendMess(string str)
         {
             try
@@ -98,10 +101,10 @@ namespace ser
                 return false;
             }
         }
-        // чтение входящего сообщения и преобразование в строку
+        // read data with socket
         private string GetMessage()
         {
-            byte[] data = new byte[2048]; // буфер для получаемых данных
+            byte[] data = new byte[2048];
             StringBuilder builder = new StringBuilder();
             int bytes = 0;
             do
@@ -113,7 +116,7 @@ namespace ser
             return builder.ToString();
         }
 
-        // закрытие подключения
+        // Close connect
         protected internal void Close()
         {
             if (Stream != null)
@@ -122,6 +125,7 @@ namespace ser
                 client.Close();
         }
 
+        //cut data, if 2 packages arrived
         private List<string> CutXml(string xml)
         {
             try
@@ -137,10 +141,10 @@ namespace ser
                     if(ind1==-1)
                         break;
                     int ind2 = xml.IndexOf(end_str, ind1);
-                    Console.WriteLine("xml string: {0}", xml);
-                    Console.WriteLine("ind1: {0}", ind1);
-                    Console.WriteLine("ind2: {0}", ind2);
-                    Console.WriteLine('\n');
+                    //Console.WriteLine("xml string: {0}", xml);
+                    //Console.WriteLine("ind1: {0}", ind1);
+                    //Console.WriteLine("ind2: {0}", ind2);
+                    //Console.WriteLine('\n');
                     if (ind1 == -1 || ind2 == -1)
                         break;
                     if (ind1 + start_str.Length < ind2 && ind2 + end_str.Length < xml.Length)

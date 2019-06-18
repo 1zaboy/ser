@@ -1,3 +1,4 @@
+//class for databace table _User_In_Room (Entity Framework)
 namespace ser.DATA_DB
 {
     using System;

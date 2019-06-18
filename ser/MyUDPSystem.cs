@@ -38,6 +38,8 @@ namespace ser
                 throw;
             }
         }
+        //thread method
+        // gets data with socket (udp type)
         public void Process()
         {
             alive = true;
@@ -86,30 +88,11 @@ namespace ser
                 Console.WriteLine(ex.Message);
             }
         }
-
+        //send data to net pont
         public int sendInfo(string str, IPEndPoint endPoint)
         {
             byte[] data = Encoding.UTF8.GetBytes(str.ToCharArray(), 0, str.Length);
             return client.Send(data, data.Length, endPoint);
-        }
-
-        public void ExitChat()
-        {
-            try
-            {
-                string message = userName + " покидает чат";
-                byte[] data = Encoding.UTF8.GetBytes(message);
-                client.Send(data, data.Length, HOST, LOCALPORT);
-                client.DropMulticastGroup(groupAddress);
-
-                alive = false;
-                client.Close();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
         }
     }
 }

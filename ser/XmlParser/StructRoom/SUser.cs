@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ser.XmlParser.StructRoom
 {
+    //struct(class) for Users
     class SUser
     {
         public string index;

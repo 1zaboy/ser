@@ -15,6 +15,7 @@ namespace ser
     {
         public Dictionary<string, Delegate> Dictionary = new Dictionary<string, Delegate>();
         private ClientObject _clientObject;
+        //initialize dictionary methods
         public query(ClientObject clientObject)
         {
             _clientObject = clientObject;
@@ -37,7 +38,7 @@ namespace ser
             Dictionary.Add("86", new Func<StructDocMess, bool>(case86));
             Dictionary.Add("90", new Func<StructDocMess, bool>(case90));
         }
-
+        //ping user
         public bool case0(StructDocMess mess)
         {
             try
@@ -51,6 +52,7 @@ namespace ser
                 throw;
             }
         }
+        //login user
         public bool case1(StructDocMess mess)//log
         {
             try
@@ -84,8 +86,7 @@ namespace ser
                 throw;
             }
         }
-
-
+        //registration user
         public bool case2(StructDocMess mess)//reg false if there is user treu if reg
         {
             try
@@ -123,6 +124,7 @@ namespace ser
                 throw;
             }
         }
+        //exit user
         public bool case3(StructDocMess mess)
         {
             try
@@ -143,7 +145,7 @@ namespace ser
                 throw;
             }
         }
-
+        //reqest on get user by name string (first 7)
         public bool case5(StructDocMess mess)
         {
             try
@@ -159,7 +161,8 @@ namespace ser
             }
         }
 
-        public bool case10(StructDocMess mess)//create room
+        //create room
+        public bool case10(StructDocMess mess)
         {
             try
             {

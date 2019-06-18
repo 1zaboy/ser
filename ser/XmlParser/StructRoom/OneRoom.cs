@@ -1,11 +1,11 @@
 ﻿using System;
-
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 namespace ser.XmlParser.StructRoom
 {
+    //struct(class) for group
     class OneRoom
     {
         public int index_room;

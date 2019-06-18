@@ -34,9 +34,6 @@ namespace ser
                 while (true)
                 {
                     Console.WriteLine("1\tЗапуск");
-                    //Console.WriteLine("1\tЗапуск TCP");
-                    //Console.WriteLine("2\tЗапуск UDP");
-                    //Console.WriteLine("3\tОтображения в консоль пользователей");
                     Console.WriteLine("2\tСоздание отчётов о отправленных сообщениях");
                     Console.WriteLine("3\tСоздание отчётов о группах");
                     Console.WriteLine("4\tСоздание отчётов о пользователях");
@@ -56,18 +53,17 @@ namespace ser
                 Console.WriteLine(ex.Message);
             }
         }
-
+        // initialize dictionary methods
         static public void Init()
         {
             Dictionary.Add("1", new Action(case0));
-            //Dictionary.Add("1", new Action(case1));
-            //Dictionary.Add("2", new Action(case2));
             Dictionary.Add("666", new Action(case3));
             Dictionary.Add("2", new Action(case4));
             Dictionary.Add("3", new Action(case5));
             Dictionary.Add("4", new Action(case6));
         }
 
+        //start server
         static private void case0()
         {
             try
@@ -81,6 +77,7 @@ namespace ser
                 throw;
             }
         }
+        //start tcp 
         static private void case1()
         {
             try
@@ -96,6 +93,7 @@ namespace ser
                 throw;
             }
         }
+        //start udp
         static private void case2()
         {
             udp_server = new MyUDPSystem();
@@ -104,6 +102,7 @@ namespace ser
             LThread2.Start();
         }
         static dbb _mmm = new dbb();
+        //(For test) print all user in console
         static private void case3()
         {
             try
@@ -128,7 +127,7 @@ namespace ser
                 throw;
             }
         }
-
+        // report messages
         static private void case4()
         {
             try
@@ -136,15 +135,13 @@ namespace ser
                 Report r = new Report();
                 var str = r.ViewMessage();
                 Console.WriteLine("Отчёт создан, он находится по адресу: {0}", str);
-                //r.sss();
-                
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
             }
         }
-
+        // report groups
         static private void case5()
         {
             try
@@ -158,6 +155,7 @@ namespace ser
                 Console.WriteLine(e);
             }
         }
+        // report users
         static private void case6()
         {
             try

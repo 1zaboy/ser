@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace ser.XmlParser
 {
+    //struct(class) for main type packets data on network
     class StructDocMess
     {
-       
         public string index_command;
 
         public string index_user;

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace ser.XmlParser.StructRoom
 {
+    //struct(class) for message
     class SMessage
     {
         public string str;

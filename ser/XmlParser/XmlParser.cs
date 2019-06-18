@@ -10,11 +10,18 @@ namespace ser.XmlParser
 {
     class XmlParser
     {
+        //method for gets value from xml string
+        // str = xml string
+        // inname = name xml teg
+        // return = string value
         public static string GetIndexCommand(string str, string inname = "index_command")
         {
             var t = XDocument.Parse(str);
             return t.Descendants(inname).First().Value;
         }
+        //method for gets main type data network (struct) from xml string 
+        // str      =   xml string
+        // return   =   main type data network (struct)
         public static StructDocMess string_to_struct(string str)
         {
             try
@@ -42,6 +49,9 @@ namespace ser.XmlParser
                 throw;
             }
         }
+        //method for gets xml string from main type data network (struct) 
+        // str      =   main type data network (struct)
+        // return   =   xml string
         public static string struct_to_string(StructDocMess str)
         {
             try
@@ -86,6 +96,9 @@ namespace ser.XmlParser
             }
         }
 
+        //method to get all groups for a user without messages
+        // mess      =   main type data network (struct)
+        // return    =   string xml
         public static string struct_all_room_not_mess_string(StructDocMess mess)
         {
             dbb dbb = new dbb();
@@ -150,6 +163,9 @@ namespace ser.XmlParser
             }
         }
 
+        //method for receiving all messages in the group of the user
+        // mess      =   main type data network (struct)
+        // return    =   string xml
         public static string struct_all_mess_in_room_to_string(StructDocMess mess)
         {
             dbb dbb = new dbb();
@@ -208,7 +224,9 @@ namespace ser.XmlParser
                 throw;
             }
         }
-
+        //method to get one group for user
+        // mess      =   main type data network (struct)
+        // return    =   string xml
         public static string struct_one_room_to_string(StructDocMess mess)
         {
             dbb dbb = new dbb();
@@ -271,7 +289,9 @@ namespace ser.XmlParser
             }
 
         }
-
+        //method to get user list for group
+        // mess      =   main type data network (struct)
+        // return    =   string xml
         public static string struct_one_room_list_user_to_string(StructDocMess mess)
         {
             dbb dbb = new dbb();
@@ -335,7 +355,9 @@ namespace ser.XmlParser
             }
 
         }
-
+        //method to get a list to find users for a group
+        // mess      =   main type data network (struct)
+        // return    =   string xml
         public static string struct_search_user_to_string(StructDocMess mess, int take)
         {
             dbb dbb = new dbb();

@@ -1,3 +1,4 @@
+//class for databace table message_on_room (Entity Framework)
 namespace ser.DATA_DB
 {
     using System;

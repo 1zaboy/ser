@@ -1,3 +1,4 @@
+//main class(Entity Framework)
 namespace ser.DATA_DB
 {
     using System;
