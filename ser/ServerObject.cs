@@ -12,12 +12,11 @@ namespace ser
 {
     class ServerObject
     {
-        static TcpListener tcpListener; // сервер для прослушивания
-        //static public List<MainListUser> clients = new List<MainListUser>(); // все подключения
+        static TcpListener tcpListener;
         static public Dictionary<int, MainListUser> DictionaryClients = new Dictionary<int, MainListUser>();
         static public int IndexUser = 0;
-
         //CLEAR ITEM LIST
+        //remove user from list connection users
         protected internal void RemoveConnection(string id)
         {
             try
@@ -25,9 +24,6 @@ namespace ser
                 dbb M = new dbb();
                 // получаем по id закрытое подключение
                 var client = DictionaryClients.FirstOrDefault(c => c.Value.ClientObject.Id == id);
-                //MainListUser client = clients.FirstOrDefault(c => c.ClientObject.Id == id);
-                //var _index = clients.FindIndex(a => a == client);
-                // и удаляем его из списка подключений
                 if (client.Value != null)
                 {
                     DictionaryClients.Remove(client.Key);
@@ -47,7 +43,7 @@ namespace ser
                 Console.WriteLine(e);
             }
         }
-        // прослушивание входящих подключений
+        // listen new connection
         public void Listen()
         {
             try
@@ -75,7 +71,7 @@ namespace ser
             }
         }
 
-        // отключение всех клиентов
+        // disconnection all users
         protected internal void Disconnect()
         {
             tcpListener.Stop(); //остановка сервера

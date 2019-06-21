@@ -208,11 +208,11 @@ namespace ser
 
         }
 
-        public bool case13(StructDocMess mess)//get all room
+        //get all room but not heve message (1 message)
+        public bool case13(StructDocMess mess)
         {
             try
             {
-                //string message_string = XmlParser.XmlParser.struct_all_room_to_string(mess);
                 string message_string = XmlParser.XmlParser.struct_all_room_not_mess_string(mess);
                 _clientObject.SendMess(message_string);
                 return true;
@@ -224,11 +224,11 @@ namespace ser
             }
         }
 
+        //get all message in one room
         public bool case14(StructDocMess mess)
         {
             try
             {
-                //string message_string = XmlParser.XmlParser.struct_all_room_to_string(mess);
                 string message_string = XmlParser.XmlParser.struct_all_mess_in_room_to_string(mess);
                 _clientObject.SendMess(message_string);
                 return true;
@@ -240,6 +240,7 @@ namespace ser
             }
         }
 
+        //get all active users in one room
         public bool case15(StructDocMess mess)
         {
             try
@@ -255,6 +256,7 @@ namespace ser
             }
         }
 
+        // (Admin) delete user of room
         public bool case16(StructDocMess mess)
         {
             try
@@ -339,6 +341,7 @@ namespace ser
             }
         }
 
+        //send invitation by name user
         public bool case20(StructDocMess mess)//send invait
         {
             try
@@ -391,7 +394,9 @@ namespace ser
                 throw;
             }
         }
-        public bool case21(StructDocMess mess)//new user in Room | send user in room and add
+        //response invitation from user
+        //new user in Room | send user in room and add
+        public bool case21(StructDocMess mess)
         {
             try
             {
@@ -492,7 +497,7 @@ namespace ser
                 throw;
             }
         }
-
+        //get one room
         public bool case22(StructDocMess mess)
         {
             try
@@ -507,7 +512,8 @@ namespace ser
                 throw;
             }
         }
-        public bool case25(StructDocMess mess)//new mess
+        //new mess in room
+        public bool case25(StructDocMess mess)
         {
             try
             {
@@ -553,7 +559,8 @@ namespace ser
             }
         }
 
-        public bool case80(StructDocMess mess) //inviting call
+        //inviting call
+        public bool case80(StructDocMess mess) 
         {
             try
             {
@@ -567,7 +574,6 @@ namespace ser
                         v2 = VARIABLE.UserNotType.index_in_list.Value;
                     if (ServerObject.DictionaryClients.ContainsKey(v2))
                         ServerObject.DictionaryClients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
-                    //ServerObject.clients[v2].ClientObject.SendMess(XmlParser.XmlParser.struct_to_string(mess));
                 }
 
                 return true;
@@ -577,10 +583,8 @@ namespace ser
                 Console.WriteLine(e);
                 throw;
             }
-
-
         }
-
+        // response to invitation the call
         public bool case85(StructDocMess mess)
         {
             try
@@ -643,7 +647,7 @@ namespace ser
                 throw;
             }
         }
-
+        //call end message
         public bool case86(StructDocMess mess)
         {
             try
@@ -670,6 +674,7 @@ namespace ser
             }
         }
 
+        //exit of room
         public bool case90(StructDocMess mess)
         {
             try

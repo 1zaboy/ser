@@ -13,6 +13,7 @@ namespace ser
 {
     class Report
     {
+        //create report of the message 
         public string ViewMessage()
         {
             dbb _db = new dbb();
@@ -70,7 +71,7 @@ namespace ser
 
             return str + name_file;
         }
-
+        //create report of the group
         public string ViewGroup()
         {
             dbb _db = new dbb();
@@ -120,7 +121,7 @@ namespace ser
 
             return "Нет групп";
         }
-
+        //create report of the Users
         public string ViewUsers()
         {
             dbb _db = new dbb();
