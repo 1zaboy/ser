@@ -441,7 +441,7 @@ namespace ser
                     fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
 
                     var all_user = _db.C_User_In_Room
-                        .Where(t => t.C_Room.TableId == room.TableId && t.UserNotType.Id != user.Id).ToList();
+                        .Where(t => t.C_Room.TableId == room.TableId && t.UserNotType.Id != user.Id && t.Participant).ToList();
                     foreach (var VARIABLE in all_user)
                     {
                         int r = VARIABLE.UserNotType.index_in_list ?? -1;
@@ -468,7 +468,7 @@ namespace ser
                     fDocMess.time_message = DateTime.Now.ToString("yyyy.MM.dd-HH.mm.ss");
 
                     var all_user = _db.C_User_In_Room
-                        .Where(t => t.C_Room.TableId == room.TableId && t.UserNotType.Id != user.Id).ToList();
+                        .Where(t => t.C_Room.TableId == room.TableId && t.UserNotType.Id != user.Id && t.Participant).ToList();
                     foreach (var VARIABLE in all_user)
                     {
                         int r = VARIABLE.UserNotType.index_in_list ?? -1;
