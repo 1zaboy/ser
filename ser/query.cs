@@ -733,6 +733,8 @@ namespace ser
                                 .SendMess(XmlParser.XmlParser.struct_to_string(fDocMess));
                             //Console.WriteLine("Сообщения о выходе отправлено: {0}", mess.text_message);
                         }
+
+                        index = -1;
                     }
                 }
 
