@@ -275,7 +275,7 @@ namespace ser
 
                         StructDocMess fDocMess = new StructDocMess();
                         fDocMess.index_command = "26";
-                        fDocMess.index_user = "-1";
+                        fDocMess.index_user = "-2";
                         fDocMess.name_user = "Server";
                         fDocMess.index_room = mess.index_room;
                         fDocMess.name_room = mess.name_room;
