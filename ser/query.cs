@@ -600,7 +600,7 @@ namespace ser
                     int v4 = 0;
                     if (usersInRoom[1].UserNotType.index_in_list.HasValue)
                         v4 = usersInRoom[1].UserNotType.index_in_list.Value;
-                    //Console.WriteLine("v2-{0}:v4-{1}", v2, v4);
+                    Console.WriteLine("v2-{0}:v4-{1}", v2, v4);
 
                     if (ServerObject.DictionaryClients.ContainsKey(v2) && ServerObject.DictionaryClients.ContainsKey(v4))
                     {
